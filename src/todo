@@ -1,0 +1,21 @@
+\--------------------------------TODOS-----------------------------------/
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+*   Make the website better looking
+*   Write a detailed documentation on how the website works and why we created it
+
+
+
+
+\--------------------------------FINISHED--------------------------------/
+*** Make a modal to output errors/success
+*** Make a modal or input field asking for confirmation number
+*** Remove SmsConfirmation component after user successfully verifies pin
+------------------------------------------------------------------------
+**  Post request
+------------------------------------------------------------------------
+*   Set colors for all candidates
+*   Update chart to represent user's vote
+*   add a loading animation
