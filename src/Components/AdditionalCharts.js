@@ -1,5 +1,5 @@
 import React from 'react';
-import {HorizontalBar} from 'react-chartjs-2';
+import {Doughnut} from 'react-chartjs-2';
 
 const Chart = ({data}) => {
     const candidateList = data.map(candidate => {
@@ -48,21 +48,20 @@ const Chart = ({data}) => {
     return(
         <div className="voting-section">
             <div className="container">
-                <div className="main-chart">
-                    <div>
-                        <h5 className="center-align header-main">რეზულტატები</h5>
-                        <HorizontalBar
+                <div className="main-chart row">
+                    <h5 className="center-align header-main">დამატებითი სტატისტიკა</h5>
+                    <div className="col s12 m12">
+                        <Doughnut 
                             data={dataMount}
-                            height={450}
                             options={{
-                                maintainAspectRatio: false,
+                                maintainAspectRatio: true,
                                 legend: {
                                     display: true,
                                     position: 'bottom'
                                 }
                             }}
                         />
-                    </div>         
+                    </div>          
                 </div>
             </div>
         </div>

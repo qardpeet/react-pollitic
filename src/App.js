@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from './Components/Chart';
+import AdditionalCharts from './Components/AdditionalCharts'
 import AddVote from './Components/AddVote';
 import Modal from './Components/Modal';
 import SmsConfirmation from './Components/SmsConfirmation';
@@ -26,6 +27,8 @@ class App extends Component {
     }
 
 	addVote = (vote) => {
+		console.log('%cVOTE OBJECT REACT', "color: blue; font-size:15px;");
+		console.log(vote);
 		const formattedNumber = this.formatNumber(vote.number);
 		fetch(urlPost, {
 				method: 'POST',
@@ -42,6 +45,8 @@ class App extends Component {
 			})
 			.then(data => data.json())
 			.then(data => {
+				console.log('%cFETCH DATA JSON WITH VOTE OBJ', "color: red; font-size:15px;");
+				console.log(data);
 				if(data.status === 'success') {
 					this.setState({
 						input: {
@@ -64,6 +69,8 @@ class App extends Component {
 	}
 
 	confirmSmsKey = (pin, link) => {
+		console.log('%cPIN, LINK OBJECT REACT', "color: blue; font-size:15px;");
+		console.log({pin, link});
 		fetch(link, {
 			method: 'POST',
 			headers: {
@@ -73,36 +80,38 @@ class App extends Component {
 				pin: pin
 			})
 		})
-		.then(data => data.json())
-		.then(data => {
-			if(data.status === 'success') {
-				fetch(urlData)
-					.then(apiData => apiData.json())
-					.then(apiData => {
-						this.setState({
-							modal: {
-								display: true,
-								status: true,
-								message: data.data.message
-							},
-							input: {
-								candidateSelection: false,
-								smsVerification: false,
-								link: ''						
-							},
-							apiData: apiData
-						});
-					});					
-			} else {
-				this.setState({
-					modal: {
-						display: true,
-						status: false,
-						message: data.error
-					}
-				});
-			}
-		});
+			.then(data => data.json())
+			.then(data => {
+				console.log('%cFETCH DATA JSON WITH {pin, link} OBJ', "color: red; font-size:15px;");
+				console.log(data);
+				if(data.status === 'success') {
+					fetch(urlData)
+						.then(apiData => apiData.json())
+						.then(apiData => {
+							this.setState({
+								modal: {
+									display: true,
+									status: true,
+									message: data.data.message
+								},
+								input: {
+									candidateSelection: false,
+									smsVerification: false,
+									link: ''						
+								},
+								apiData: apiData
+							});
+						});					
+				} else {
+					this.setState({
+						modal: {
+							display: true,
+							status: false,
+							message: data.error
+						}
+					});
+				}
+			});
 	}
 
 	changeModalStatus = () => {
@@ -126,11 +135,12 @@ class App extends Component {
 	render() {
 		if (!this.state.apiData) return <div className="loader">საიტი იტვირთება...</div>
 		return (
-			<div className="App container">
+			<div className="App">
 				<Modal modal={this.state.modal} changeModalStatus={this.changeModalStatus}/>
 				<Chart data={this.state.apiData.data}/>
 				<AddVote display={this.state.input.candidateSelection} addVote={this.addVote} data={this.state.apiData.data} confirmSmsKey={this.confirmSmsKey}/>
 				<SmsConfirmation display={this.state.input.smsVerification} confirmSmsKey={this.confirmSmsKey} link={this.state.input.link}/>
+				<AdditionalCharts data={this.state.apiData.data}/>
 			</div>
 		);
 	}

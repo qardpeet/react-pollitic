@@ -13,6 +13,7 @@
 *** Make a modal to output errors/success
 *** Make a modal or input field asking for confirmation number
 *** Remove SmsConfirmation component after user successfully verifies pin
+*** Update the recaptcha every time user submits the vote form
 ------------------------------------------------------------------------
 **  Post request
 ------------------------------------------------------------------------

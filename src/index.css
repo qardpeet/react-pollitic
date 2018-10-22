@@ -26,11 +26,11 @@ code {
 }
 
 .main-chart {
-  margin: 50px 0px;
+  margin: 0px;
 }
 
 .add-vote {
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 
 .main-btn {
@@ -60,6 +60,15 @@ button {
 .label {
   padding: 0;
   margin: 0;
+}
+
+.voting-section {
+  background-color: #F5F7FA;
+  padding: 25px 0;
+}
+
+.voting-section.light { 
+  background-color: #FEF9FF;
 }
 
 .loader,
