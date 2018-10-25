@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import Chart from './Components/Chart';
-import AdditionalCharts from './Components/AdditionalCharts'
-import AddVote from './Components/AddVote';
-import Modal from './Components/Modal';
-import SmsConfirmation from './Components/SmsConfirmation';
-
-const urlData = 'https://pollitic.herokuapp.com/api'; //api url for fetching candidates
-const urlPost = 'https://pollitic.herokuapp.com/api/vote';
+import Home from './ParentComponents/Home'
 
 class App extends Component {
 	state = {
@@ -14,7 +7,11 @@ class App extends Component {
 	}
 
 	render() {
-		return true;
+		return (
+			<div>
+				<Home />
+			</div>
+		);
 	}
 }
 

@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import Navbar from '../ChildComponents/Navbar';
+import CallToAction from '../ChildComponents/CallToAction';
+import AboutUs from '../ChildComponents/AboutUs';
+import PollsMin from '../ChildComponents/PollsMin';
+import Footer from '../ChildComponents/Footer';
 
 class Home extends Component {
 	state = {
@@ -6,7 +11,16 @@ class Home extends Component {
 	}
 
 	render() {
-		return true;
+		return (
+			<div>
+				<Navbar />
+				<CallToAction />
+				<AboutUs />
+				<PollsMin />
+				<PollsMin />
+				<Footer />
+			</div>
+		);
 	}
 }
 

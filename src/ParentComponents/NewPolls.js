@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Navbar from '../ChildComponents/Navbar';
-import AddNewPoll from '../ChildComponents/AddNewPoll';
+import PollFull from '../ChildComponents/FunctionalComponents/PollFull';
 import PollsMin from '../ChildComponents/PollsMin';
 import Footer from '../ChildComponents/Footer';
 
-class NewPoll extends Component {
+
+class NewPolls extends Component {
 	state = {
 
 	}
@@ -13,12 +14,12 @@ class NewPoll extends Component {
 		return (
 			<div>
 				<Navbar />
-				<AddNewPoll />
+				<PollFull />
 				<PollsMin />
 				<Footer />
-			</div>			
+			</div>
 		);
 	}
 }
 
-export default NewPoll;
+export default NewPolls;
