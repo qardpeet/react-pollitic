@@ -20,6 +20,26 @@ body {
   font-family: BPGarial, sans-serif;
 }
 
+nav .brand-logo {
+  color: black;
+}
+
+nav a,
+nav ul a {
+  color: black;
+  font-family: BPGweb;
+}
+
+nav {
+  box-shadow: none;
+}
+
+nav .brand-logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

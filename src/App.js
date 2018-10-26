@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Home from './ParentComponents/Home'
+import Home from './ParentComponents/Home';
 
 class App extends Component {
 	state = {
