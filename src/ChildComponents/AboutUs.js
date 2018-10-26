@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BasicContainerHOC from '../hoc/BasicContainerHOC';
 import illustration from '../assets/img/man_graph_2.png';
 
 class AboutUs extends Component {
@@ -9,21 +10,17 @@ class AboutUs extends Component {
 
 	render() {
 		return (
-			<div className="pollitic-item">
-				<div className="container">
-					<div className="row">
-						<div className="col s12 m12 l12 xl6">
-							<h1>{this.state.header}</h1>
-							<p>{this.state.description}</p>
-						</div>
-						<div className="col s12 m12 l12 xl6">
-							<img src={illustration} alt='სურათი'/>
-						</div>
-					</div>
+			<div className="row">
+				<div className="col s12 m12 l12 xl6">
+					<h1>{this.state.header}</h1>
+					<p>{this.state.description}</p>
+				</div>
+				<div className="col s12 m12 l12 xl6">
+					<img src={illustration} alt='სურათი'/>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default AboutUs;
+export default BasicContainerHOC(AboutUs);

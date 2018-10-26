@@ -1,6 +1,5 @@
 \--------------------------------TODOS-----------------------------------/
 ***Code the Home component
-***Add Routing functionality
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -16,3 +15,4 @@
 ***Create CallToAction Component
 ***Create AboutUs Component
 *Split up NavBar component into two parts
+***Add Routing functionality

@@ -14,7 +14,7 @@ class ClosedPolls extends Component {
 			<React.Fragment>
 				<Navbar />
 				<PollFull />
-				<PollsMin />
+				<PollsMin sort='hot' />
 				<Footer />
 			</React.Fragment>
 		);

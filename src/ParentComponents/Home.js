@@ -16,8 +16,8 @@ class Home extends Component {
 				<Navbar />
 				<CallToAction />
 				<AboutUs />
-				<PollsMin />
-				<PollsMin />
+				<PollsMin sort='hot' />
+				<PollsMin sort='new' />
 				<Footer />
 			</React.Fragment>
 		);

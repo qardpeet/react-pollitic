@@ -17,11 +17,11 @@ class App extends Component {
 			<BrowserRouter>
 				<React.Fragment>
 					<Route exact path='/' component={Home}/>
-					<Route path='/closedPolls' component={ClosedPolls} />
-					<Route path='/hotPolls' component={HotPolls} />
-					<Route path='/newPoll' component={NewPoll} />
-					<Route path='/newPolls' component={NewPolls} />
-					<Route path='/poll' component={Poll} />
+					<Route path='/closed-polls' component={ClosedPolls} />
+					<Route path='/hot-polls' component={HotPolls} />
+					<Route path='/new-poll' component={NewPoll} />
+					<Route path='/new-polls' component={NewPolls} />
+					<Route path='/poll/:poll_id' component={Poll} />
 				</React.Fragment>
 			</BrowserRouter>
 		);

@@ -16,13 +16,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #FEF9FF;
+  background-color: #f4f7ff;
   font-family: BPGarial, sans-serif;
 }
 
 h1 {
   font-size: 40px;
   font-family: BPGweb;
+}
+
+h3 {
+  font-size: 18px;
+  font-family: BPGweb;
+  text-align: center;
+  margin: 15px 0;
 }
 
 button {
@@ -54,6 +61,12 @@ nav .brand-logo {
   margin: 50px 0;
 }
 
+.pollitic-item.padded-white {
+  padding: 15px;
+  background-color: white;
+  border-radius: 20px;
+}
+
 .pollitic-item img {
   max-width: 100%;
   height: auto;
@@ -71,6 +84,49 @@ nav .brand-logo {
   height: 120vh;
   background-color: rgba(0,0,0,0.5);
   z-index: 997;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+.pollitic-min-item {
+  border-radius: 15px;
+  height: 230px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-position: center;
+}
+
+.pollitic-min-item-overlay {
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pollitic-min-item-overlay h2 {
+  max-height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 18px;
+  font-family: BPGweb;
+  line-height: 2.5rem;
+  text-align: center;
+  color: white;
+}
+
+.pollitic-min-item-overlay h4 {
+  font-size: 14px;
+  font-family: BPGweb;
+  text-align: center;
+  color: rgba(255,255,255, 0.8);
 }
 
 @media only screen and (max-width: 601px) {

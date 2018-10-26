@@ -15,7 +15,7 @@ class HotPolls extends Component {
 			<React.Fragment>
 				<Navbar />
 				<PollFull />
-				<PollsMin />
+				<PollsMin sort='new' />
 				<Footer />
 			</React.Fragment>
 		);
