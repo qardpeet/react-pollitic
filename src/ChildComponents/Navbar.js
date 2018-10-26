@@ -10,35 +10,22 @@ class Navbar extends Component {
 			{name: 'მიმდინარე', url: '/', id: '2'},
 			{name: 'რატომ Pollitic?', url: '/', id: '3'}
 		],
-		sideNavActive: false,
-		sideNavStyle: {
-			transform: 'translateX(-105%)'		
-		}
+		sideNavActive: false
 	}
 
 	handleOpen = (e) => {
 		e.preventDefault();
 
-		this.setState({
-			sideNavStyle: {
-				transform: 'translateX(0%)',
-				transition: 'all 250ms'				
-			},
-			sideNavActive: true
-		});
+		this.setState({	sideNavActive: true });
 	}
 
 	handleClose = () => {
-		this.setState({
-			sideNavStyle: {
-				transform: 'translateX(-105%)',
-				transition: 'all 250ms'
-			},
-			sideNavActive: false
-		});
+		this.setState({ sideNavActive: false });
 	}
 
 	render() {
+		const sideNavStyle = this.state.sideNavActive ? {transform: 'translateX(0%)', transition: 'transform 250ms'} : {transition: 'transform 250ms'};
+
 		return (
 			<React.Fragment>
 				<nav className="white" role="navigation">
@@ -48,7 +35,7 @@ class Navbar extends Component {
 							<NavButtons buttons={this.state.buttons}/>
 						</ul>
 
-						<ul className="sidenav" style={this.state.sideNavStyle}>
+						<ul className="sidenav" style={sideNavStyle}>
 							<NavButtons buttons={this.state.buttons}/>
 						</ul>
 						<a href="/" onClick={this.handleOpen} className="sidenav-trigger"><i className="material-icons">menu</i></a>
