@@ -12,14 +12,14 @@ class Home extends Component {
 
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Navbar />
 				<CallToAction />
 				<AboutUs />
 				<PollsMin />
 				<PollsMin />
 				<Footer />
-			</div>
+			</React.Fragment>
 		);
 	}
 }

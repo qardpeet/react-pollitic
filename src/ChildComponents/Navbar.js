@@ -5,10 +5,10 @@ import logo from '../assets/img/logo.png';
 class Navbar extends Component {
 	state = {
 		buttons: [
-			{name: 'მთავარი', url: '/'},
-			{name: 'დასრულებული', url: '/'},
-			{name: 'მიმდინარე', url: '/'},
-			{name: 'რატომ Pollitic?', url: '/'}
+			{name: 'მთავარი', url: '/', id: '0'},
+			{name: 'დასრულებული', url: '/', id: '1'},
+			{name: 'მიმდინარე', url: '/', id: '2'},
+			{name: 'რატომ Pollitic?', url: '/', id: '3'}
 		],
 		sideNavActive: false,
 		sideNavStyle: {

@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavButtons = ({buttons}) => {
     const buttonsList = buttons.map(button => {
-        return (<li><a href={button.url}>{button.name}</a></li>);
+        return (<li key={button.id}><a href={button.url}>{button.name}</a></li>);
     });
 
     return (
