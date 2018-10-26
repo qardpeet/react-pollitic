@@ -11,12 +11,12 @@ class NewPoll extends Component {
 
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Navbar />
 				<AddNewPoll />
 				<PollsMin />
 				<Footer />
-			</div>			
+			</React.Fragment>			
 		);
 	}
 }

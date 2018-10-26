@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import NavButtons from './FunctionalComponents/NavButtons';
 import logo from '../assets/img/logo.png';
 
@@ -6,9 +7,8 @@ class Navbar extends Component {
 	state = {
 		buttons: [
 			{name: 'მთავარი', url: '/', id: '0'},
-			{name: 'დასრულებული', url: '/', id: '1'},
-			{name: 'მიმდინარე', url: '/', id: '2'},
-			{name: 'რატომ Pollitic?', url: '/', id: '3'}
+			{name: 'დასრულებული', url: '/closedPolls', id: '1'},
+			{name: 'მიმდინარე', url: '/hotPolls', id: '2'}
 		],
 		sideNavActive: false
 	}
@@ -30,7 +30,7 @@ class Navbar extends Component {
 			<React.Fragment>
 				<nav className="white" role="navigation">
 					<div className="nav-wrapper container">
-						<a id="logo-container" href="/" className="brand-logo"><img src={logo} alt="logo"/></a>
+						<Link to='/' className="brand-logo"><img src={logo} alt="logo"/></Link>
 						<ul className="right hide-on-med-and-down">
 							<NavButtons buttons={this.state.buttons}/>
 						</ul>

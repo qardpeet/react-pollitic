@@ -15,7 +15,7 @@ class Poll extends Component {
 
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Navbar />
 				<PollFull />
 				<MainChart />
@@ -23,7 +23,7 @@ class Poll extends Component {
 				<DonutChart />
 				<PollsMin />
 				<Footer />
-			</div>
+			</React.Fragment>
 		);
 	}
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import illustration from '../assets/img/man_graph.png';
 
 class CallToAction extends Component {
@@ -21,7 +22,7 @@ class CallToAction extends Component {
 						<div className="col s12 m12 l12 xl6">
 							<h1>{this.state.header}</h1>
 							<p>{this.state.description}</p>
-							<button className="btn">{this.state.buttons.callToAction}</button>
+							<Link to="/newPoll"><button className="btn">{this.state.buttons.callToAction}</button></Link>
 						</div>
 					</div>
 				</div>

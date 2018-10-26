@@ -12,12 +12,12 @@ class HotPolls extends Component {
 
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Navbar />
 				<PollFull />
 				<PollsMin />
 				<Footer />
-			</div>
+			</React.Fragment>
 		);
 	}
 }

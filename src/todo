@@ -1,5 +1,6 @@
 \--------------------------------TODOS-----------------------------------/
 ***Code the Home component
+***Add Routing functionality
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -13,4 +14,5 @@
 ***Nest Components appropriately
 ***Create NavBar Component
 ***Create CallToAction Component
+***Create AboutUs Component
 *Split up NavBar component into two parts

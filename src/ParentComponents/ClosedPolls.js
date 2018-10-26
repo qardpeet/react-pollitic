@@ -4,7 +4,6 @@ import PollFull from '../ChildComponents/FunctionalComponents/PollFull';
 import PollsMin from '../ChildComponents/PollsMin';
 import Footer from '../ChildComponents/Footer';
 
-
 class ClosedPolls extends Component {
 	state = {
 
@@ -12,12 +11,12 @@ class ClosedPolls extends Component {
 
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Navbar />
 				<PollFull />
 				<PollsMin />
 				<Footer />
-			</div>
+			</React.Fragment>
 		);
 	}
 }
