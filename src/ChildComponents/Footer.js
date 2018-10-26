@@ -6,7 +6,11 @@ class Footer extends Component {
 	}
 
 	render() {
-		return true;
+		return (
+			<React.Fragment>
+				
+			</React.Fragment>
+		);
 	}
 }
 

@@ -6,7 +6,11 @@ class VotePoll extends Component {
 	}
 
 	render() {
-		return true;
+		return (
+			<React.Fragment>
+				
+			</React.Fragment>
+		);
 	}
 }
 

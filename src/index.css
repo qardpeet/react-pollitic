@@ -20,6 +20,16 @@ body {
   font-family: BPGarial, sans-serif;
 }
 
+h1 {
+  font-size: 40px;
+  font-family: BPGweb;
+}
+
+button {
+  font-size: 18px;
+  font-family: BPGweb;
+}
+
 nav .brand-logo {
   color: black;
 }
@@ -38,6 +48,35 @@ nav .brand-logo {
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.pollitic-item {
+  margin: 50px 0;
+}
+
+.pollitic-item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.pollitic-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  display: block;
+  height: 120vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 997;
+}
+
+@media only screen and (max-width: 601px) {
+  h1 {
+    font-size: 30px;
+  }
 }
 
 code {

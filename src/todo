@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
-*Split up NavBar component into two parts
+
 
 
 
@@ -11,3 +11,6 @@
 \--------------------------------Finished-----------------------------------/
 ***Create Components
 ***Nest Components appropriately
+***Create NavBar Component
+***Create CallToAction Component
+*Split up NavBar component into two parts
