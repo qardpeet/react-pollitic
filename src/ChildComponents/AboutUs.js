@@ -11,12 +11,12 @@ class AboutUs extends Component {
 	render() {
 		return (
 			<div className="row">
-				<div className="col s12 m12 l12 xl6">
+				<div className="col s12 m12 l12 push-xl6 xl6">
+					<img src={illustration} alt='სურათი'/>
+				</div>
+				<div className="col s12 m12 l12 pull-xl6 xl6">
 					<h1>{this.state.title}</h1>
 					<p>{this.state.description}</p>
-				</div>
-				<div className="col s12 m12 l12 xl6">
-					<img src={illustration} alt='სურათი'/>
 				</div>
 			</div>
 		);
