@@ -7,8 +7,9 @@ class Navbar extends Component {
 	state = {
 		buttons: [
 			{name: 'მთავარი', url: '/', id: '0'},
-			{name: 'დასრულებული', url: '/closed-polls', id: '1'},
-			{name: 'მიმდინარე', url: '/hot-polls', id: '2'}
+			{name: 'კონტროვერსიალური', url: '/hot-polls', id: '2'},
+			{name: 'ახალი', url: '/new-polls', id: '3'},
+			{name: 'დასრულებული', url: '/closed-polls', id: '1'}
 		],
 		sideNavActive: false
 	}

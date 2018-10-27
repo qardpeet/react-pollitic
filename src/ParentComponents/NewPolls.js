@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Navbar from '../ChildComponents/Navbar';
-import PollFull from '../ChildComponents/FunctionalComponents/PollFull';
+import PollsFull from '../ChildComponents/PollsFull';
 import PollsMin from '../ChildComponents/PollsMin';
 import Footer from '../ChildComponents/Footer';
 
-
-class NewPolls extends Component {
-	state = {
-
-	}
-
-	render() {
-		return (
-			<React.Fragment>
-				<Navbar />
-				<PollFull />
-				<PollsMin sort='hot' />
-				<Footer />
-			</React.Fragment>
-		);
-	}
+const NewPolls = () => {
+	return (
+		<React.Fragment>
+			<Navbar />
+			<PollsFull sort='new' />
+			<PollsMin sort='hot' />
+			<Footer />
+		</React.Fragment>
+	);
 }
 
 export default NewPolls;

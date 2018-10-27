@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Navbar from '../ChildComponents/Navbar';
-import PollFull from '../ChildComponents/FunctionalComponents/PollFull';
+import PollsFull from '../ChildComponents/PollsFull';
 import PollsMin from '../ChildComponents/PollsMin';
 import Footer from '../ChildComponents/Footer';
 
-class ClosedPolls extends Component {
-	state = {
-
-	}
-
-	render() {
-		return (
-			<React.Fragment>
-				<Navbar />
-				<PollFull />
-				<PollsMin sort='hot' />
-				<Footer />
-			</React.Fragment>
-		);
-	}
+const ClosedPolls = () => {
+	return (
+		<React.Fragment>
+			<Navbar />
+			<PollsFull sort='closed' />
+			<PollsMin sort='hot' />
+			<Footer />
+		</React.Fragment>
+	);
 }
 
 export default ClosedPolls;

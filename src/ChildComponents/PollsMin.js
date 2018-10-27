@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
-import PollMin from './FunctionalComponents/PollMin';
+import PollDisplay from './FunctionalComponents/PollDisplay';
+// import axios from 'axios';
+
+// const apiLink = 'http://pollitic.herokuapp.com/api/ongoing';
 
 class PollsMin extends Component {
 	state = {
@@ -86,15 +89,41 @@ class PollsMin extends Component {
 					}				
 				]
 			}
+		},
+		headers: {
+			new: 'ახალი',
+			hot: 'კონტროვერსიალური',
+			closed: 'დასრულებული'
 		}
 	}
+
+	// componentDidMount() {
+	// 	axios.post('http://pollitic.herokuapp.com/api/poll/create', {
+	// 			name: 'ლორემ იპსუმ',
+	// 			description: 'ტესტი',
+	// 			requirePhoneAuth: 'False',
+	// 			isListed: 'True',
+	// 			candidates: [
+	// 				'გიორგი',
+	// 				'პაატა',
+	// 				'ბუზალა'
+	// 			],
+	// 			closingDate: '2018-10-28 07:54:16'
+	// 		})
+	// 		.then(response => {
+	// 			console.log(response);
+	// 		})
+	// 		.catch(error => {
+	// 			console.log(error);
+	// 		});
+	// }
 
 	render() {
 		return (
 			<React.Fragment>
-				<h3>{this.props.sort === 'new' ? ('ახალი') : ('კონტროვერსიალური')}</h3>
+				<h3>{this.state.headers[this.props.sort]}</h3>
 				<div className="row">
-					<PollMin polls={this.state.apiData.data.polls}/>
+					<PollDisplay polls={this.state.apiData.data.polls} size='small' />
 				</div>
 			</React.Fragment>
 		);

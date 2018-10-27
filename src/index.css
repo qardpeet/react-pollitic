@@ -128,7 +128,20 @@ nav .brand-logo {
   font-size: 14px;
   font-family: BPGweb;
   text-align: center;
-  color: rgba(255,255,255, 0.6);
+  color: #fdd835;
+}
+
+.pollitic-min-item-overlay.full h2 {
+  font-size: 24px;
+}
+
+.pollitic-min-item-overlay.full h4 {
+  font-size: 18px;
+}
+
+.pollitic-footer {
+  padding: 10px;
+  background-color: white;
 }
 
 @media only screen and (max-width: 601px) {
