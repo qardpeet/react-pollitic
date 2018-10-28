@@ -18,12 +18,12 @@ class Poll extends Component {
 			.then(response => {
 				this.setState({
 					apiData: response.data,
-					status: response.status
+					status: response.statusText
 				});
 			})
 			.catch(error => {
 				this.setState({
-					status: error.response.status
+					status: error.response.statusText
 				});
 			});
 	}
@@ -33,7 +33,7 @@ class Poll extends Component {
 			<React.Fragment>
 				<Navbar />
 
-				{ this.state.status === 200 ? (
+				{ this.state.status === 'OK' ? (
 					<div className="container">
 						<div className="row">
 							<PollDisplay size='large' polls={[this.state.apiData.data.poll]}/>

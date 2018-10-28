@@ -25,12 +25,13 @@ class PollsFull extends Component {
 			})
 			.then(response => {
 				this.setState({
-					apiData: response.data
+					apiData: response.data,
+					status: response.statusText
 				});
 			})
 			.catch(error => {
 				this.setState({
-					status: error.response.status
+					status: error.response.statusText,
 				});
 			});		
 	}
@@ -40,7 +41,7 @@ class PollsFull extends Component {
             <React.Fragment>
                 <h3>{this.state.headers[this.props.sort]}</h3>
 				<div className="row">
-                    { this.state.apiData ? (<PollDisplay polls={this.state.apiData.data.polls} size='large' />) : (<PreLoader />)}
+                    { this.state.status === 'OK' ? (<PollDisplay polls={this.state.apiData.data.polls} size='large' />) : (<PreLoader />)}
 				</div>                
             </React.Fragment> 
         ); 

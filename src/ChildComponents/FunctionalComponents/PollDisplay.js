@@ -6,12 +6,10 @@ const PollFull = ({polls, size}) => {
     const fontClassNames = size === 'large' ? 'pollitic-min-item-overlay full' : 'pollitic-min-item-overlay';
 
     const getTimeLeft = (closingDate) => {
-        console.log(closingDate);
         const closingDateUnix = Date.parse(closingDate + ' UTC');
         const timeNow = new Date();
         const timeLeftUnix = closingDateUnix - timeNow;
         const timeLeft = new Date(timeLeftUnix);
-        console.log(timeLeftUnix);
 
         const timeLeftDays = Math.round(timeLeft / (60 * 60 * 24 * 1000));
         const timeLeftHours = Math.round(timeLeft / (60 * 60 * 1000));
