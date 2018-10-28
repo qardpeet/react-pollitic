@@ -1,5 +1,4 @@
 \--------------------------------TODOS-----------------------------------/
-***Integrate API in finished components
 ***Implement Pagination (Hot/New/Closed) components
 ***Code the Poll component
 ***Code the NewPoll component 
@@ -20,3 +19,4 @@
 *Split up NavBar component into two parts
 ***Add Routing functionality
 ***Code the Home component
+***Integrate API in finished components

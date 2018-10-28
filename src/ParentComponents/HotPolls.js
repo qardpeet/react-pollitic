@@ -8,7 +8,7 @@ const HotPolls = () => {
 	return (
 		<React.Fragment>
 			<Navbar />
-			<PollsFull sort='hot' />
+			<PollsFull sort='hot' context='ongoing' />
 			<PollsMin sort='new' />
 			<Footer />
 		</React.Fragment>

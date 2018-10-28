@@ -8,7 +8,7 @@ const ClosedPolls = () => {
 	return (
 		<React.Fragment>
 			<Navbar />
-			<PollsFull sort='closed' />
+			<PollsFull sort='closed' context='closed' />
 			<PollsMin sort='hot' />
 			<Footer />
 		</React.Fragment>
