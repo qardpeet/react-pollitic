@@ -8,19 +8,32 @@ const apiLink = 'http://pollitic.herokuapp.com/api/';
 
 class PollsFull extends Component {
 	state = {
-        headers: {
-			new: 'ახალი',
-			hot: 'კონტროვერსიალური',
-			closed: 'დასრულებული'
-		},
-		status: 0
+		status: 'pending'
+	}
+
+	componentDidMount() {
+		this.getApiData(this.props.sort, this.props.context);	
+	}
+
+
+	componentDidUpdate(prevProps) {
+		if (this.props.sort !== prevProps.sort || this.props.context !== prevProps.context) {
+			this.getApiData(this.props.sort, this.props.context);			
+		}		
+	}
+
+	componentWillUnmount() {
+		this.cancelTokenSource && this.cancelTokenSource.cancel();
 	}
 	
-	componentDidMount() {
-		axios.get(apiLink + this.props.context, {
+	getApiData = (sortBy, contextBy) => {
+		this.cancelTokenSource = axios.CancelToken.source();
+		this.setState({status: 'pending'});
+
+		axios.get(apiLink + contextBy, {
+			cancelToken: this.cancelTokenSource.token,
 			params: {
-				number: 10,
-				sort: this.props.sort
+				sort: sortBy
 			}
 			})
 			.then(response => {
@@ -30,16 +43,26 @@ class PollsFull extends Component {
 				});
 			})
 			.catch(error => {
-				this.setState({
-					status: error.response.statusText,
-				});
-			});		
+				if(axios.isCancel(error)){
+					console.log('Cancelled API Request!');
+				} else {
+					this.setState({
+						status: error.response.statusText,
+					});
+				}
+			});	
+	}
+
+	getHeaderName = (sortBy, contextBy) => {
+		if(contextBy === 'closed') return 'დასრულებული';
+		if(sortBy === 'hot') return 'კონტროვერსიალური';
+		return 'ახალი';
 	}
     
     render() {
         return(
             <React.Fragment>
-                <h3>{this.state.headers[this.props.sort]}</h3>
+                <h3>{this.getHeaderName(this.props.sort, this.props.context)}</h3>
 				<div className="row">
                     { this.state.status === 'OK' ? (<PollDisplay polls={this.state.apiData.data.polls} size='large' />) : (<PreLoader />)}
 				</div>                

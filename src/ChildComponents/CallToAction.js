@@ -19,7 +19,7 @@ class CallToAction extends Component {
 				<div className="col s12 m12 l12 xl6">
 					<h1>{this.state.title}</h1>
 					<p>{this.state.description}</p>
-					<Link to="/newPoll"><button className="btn">{this.state.button}</button></Link>
+					<Link to="/new-poll"><button className="btn">{this.state.button}</button></Link>
 				</div>
 			</div>
 		);

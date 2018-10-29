@@ -10,11 +10,24 @@ import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
 
 class Poll extends Component {
 	state = {
-		status: 0
+		status: 'pending'
 	}
 
 	componentDidMount() {
-		axios.get(`https://pollitic.herokuapp.com/api/poll/${this.props.match.params.poll_id}/view`)
+		this.getApiData(this.props.match.params.poll_id);
+	}
+
+	componentWillUnmount() {
+		this.cancelTokenSource && this.cancelTokenSource.cancel();
+	}
+
+	getApiData = (pollId) => {
+		this.cancelTokenSource = axios.CancelToken.source();
+		this.setState({status: 'pending'});
+
+		axios.get(`https://pollitic.herokuapp.com/api/poll/${pollId}/view`,{
+			cancelToken: this.cancelTokenSource.token
+			})
 			.then(response => {
 				this.setState({
 					apiData: response.data,
@@ -22,10 +35,14 @@ class Poll extends Component {
 				});
 			})
 			.catch(error => {
-				this.setState({
-					status: error.response.statusText
-				});
-			});
+				if(axios.isCancel(error)){
+					console.log('Cancelled API Request!');
+				} else {
+					this.setState({
+						status: error.response.statusText,
+					});
+				}
+			});		
 	}
 
 	render() {

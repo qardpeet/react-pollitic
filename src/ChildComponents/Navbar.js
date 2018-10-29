@@ -7,16 +7,15 @@ class Navbar extends Component {
 	state = {
 		buttons: [
 			{name: 'მთავარი', url: '/', id: '0'},
-			{name: 'კონტროვერსიალური', url: '/hot-polls', id: '2'},
-			{name: 'ახალი', url: '/new-polls', id: '3'},
-			{name: 'დასრულებული', url: '/closed-polls', id: '1'}
+			{name: 'კონტროვერსიალური', url: '/polls?sort=hot&context=ongoing', id: '1'},
+			{name: 'ახალი', url: '/polls?sort=new&context=ongoing', id: '2'},
+			{name: 'დასრულებული', url: '/polls?sort=hot&context=closed', id: '3'}
 		],
 		sideNavActive: false
 	}
 
 	handleOpen = (e) => {
 		e.preventDefault();
-
 		this.setState({	sideNavActive: true });
 	}
 

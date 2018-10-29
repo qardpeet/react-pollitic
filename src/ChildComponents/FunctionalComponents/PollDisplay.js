@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const PollFull = ({polls, size}) => {
+const PollDisplay = ({polls, size}) => {
     const gridClassNames = size === 'large' ? 'col s12 m12 l12 xl12' : 'col s12 m6 l6 xl3';
     const fontClassNames = size === 'large' ? 'pollitic-min-item-overlay full' : 'pollitic-min-item-overlay';
 
@@ -46,4 +46,4 @@ const PollFull = ({polls, size}) => {
     );
 }
 
-export default PollFull;
+export default PollDisplay;

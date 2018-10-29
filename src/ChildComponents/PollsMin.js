@@ -13,14 +13,26 @@ class PollsMin extends Component {
 			hot: 'კონტროვერსიალური',
 			closed: 'დასრულებული'
 		},
-		status: 0
+		status: 'pending'
 	}
 
 	componentDidMount() {
+		this.getApiData(this.props.sort);
+	}
+
+	componentWillUnmount() {
+		this.cancelTokenSource && this.cancelTokenSource.cancel();
+	}
+
+	getApiData = (sortBy) => {
+		this.cancelTokenSource = axios.CancelToken.source();
+		this.setState({status: 'pending'});
+
 		axios.get(apiLink, {
+			cancelToken: this.cancelTokenSource.token,
 			params: {
 				number: 4,
-				sort: this.props.sort
+				sort: sortBy
 			}
 			})
 			.then(response => {
@@ -30,10 +42,14 @@ class PollsMin extends Component {
 				});
 			})
 			.catch(error => {
-				this.setState({
-					status: error.response.statusText
-				});				
-			});
+				if(axios.isCancel(error)){
+					console.log('Cancelled API Request!');
+				} else {
+					this.setState({
+						status: error.response.statusText,
+					});
+				}			
+			});		
 	}
 
 	render() {
