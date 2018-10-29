@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import cancelablePromise from '../helpers/cancelablePromise';
+import PreLoader from './FunctionalComponents/PreLoader';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import PollDisplay from './FunctionalComponents/PollDisplay';
-import PreLoader from './FunctionalComponents/PreLoader';
-import axios from 'axios';
-import cancelablePromise from './FunctionalComponents/cancelablePromise';
 
 const apiLink = 'http://pollitic.herokuapp.com/api/';
 

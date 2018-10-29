@@ -3,7 +3,7 @@ const cancelablePromise = promise => {
 
     const wrappedPromise = new Promise((resolve, reject) => {
         promise.then(
-            value => (hasCanceled ? reject({ isCanceled: true, value }) : resolve(value)),
+            response => (hasCanceled ? reject({ isCanceled: true, response }) : resolve(response)),
             error => reject({ isCanceled: hasCanceled, error }),
         );
     });

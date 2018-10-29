@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Navbar from '../ChildComponents/Navbar';
-import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
 import axios from 'axios';
+import cancelablePromise from '../helpers/cancelablePromise';
+import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
+import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
 // import MainChart from '../ChildComponents/FunctionalComponents/MainChart';
 // import VotePoll from '../ChildComponents/VotePoll';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
 import Footer from '../ChildComponents/Footer';
-import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
-import cancelablePromise from '../ChildComponents/FunctionalComponents/cancelablePromise';
 
 class Poll extends Component {
 	state = {
