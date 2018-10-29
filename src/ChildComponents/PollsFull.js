@@ -3,6 +3,7 @@ import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import PollDisplay from './FunctionalComponents/PollDisplay';
 import PreLoader from './FunctionalComponents/PreLoader';
 import axios from 'axios';
+import cancelablePromise from './FunctionalComponents/cancelablePromise';
 
 const apiLink = 'http://pollitic.herokuapp.com/api/';
 
@@ -11,46 +12,69 @@ class PollsFull extends Component {
 		status: 'pending'
 	}
 
-	componentDidMount() {
-		this.getApiData(this.props.sort, this.props.context);	
-	}
+	pendingPromises = [];
 
+	componentDidMount() {
+		this.getApiData(this.props.sort, this.props.context);
+	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.sort !== prevProps.sort || this.props.context !== prevProps.context) {
-			this.getApiData(this.props.sort, this.props.context);			
+			this.getApiData(this.props.sort, this.props.context);
 		}		
 	}
 
 	componentWillUnmount() {
-		this.cancelTokenSource && this.cancelTokenSource.cancel();
+		this.pendingPromises.map(p => p.cancel());
+	}
+
+	appendPendingPromise = promise => {
+		this.pendingPromises = [...this.pendingPromises, promise];
+	}
+
+	removePendingPromise = promise => {
+		this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 	}
 	
 	getApiData = (sortBy, contextBy) => {
-		this.cancelTokenSource = axios.CancelToken.source();
-		this.setState({status: 'pending'});
+		this.setStatus('pending');
 
-		axios.get(apiLink + contextBy, {
-			cancelToken: this.cancelTokenSource.token,
-			params: {
-				sort: sortBy
-			}
+		const wrappedPromise = cancelablePromise(
+			axios.get(apiLink + contextBy, {
+				params: {
+					sort: sortBy
+				}
 			})
+		);
+
+		this.appendPendingPromise(wrappedPromise);
+
+		return wrappedPromise.promise
 			.then(response => {
 				this.setState({
 					apiData: response.data,
 					status: response.statusText
 				});
 			})
+			.then(() => this.removePendingPromise(wrappedPromise))
 			.catch(error => {
-				if(axios.isCancel(error)){
-					console.log('Cancelled API Request!');
-				} else {
-					this.setState({
-						status: error.response.statusText,
-					});
+				if (!error.isCanceled) {
+				  this.setState({ status: error.response.statusText });
+				  this.removePendingPromise(wrappedPromise);
 				}
-			});	
+			});
+	}
+
+	setStatus = (status) => {
+		const wrappedPromise = cancelablePromise(
+			new Promise(r => 
+				this.setState({
+					status: status
+				})
+			)
+		);
+		this.appendPendingPromise(wrappedPromise);
+		return wrappedPromise.promise;
 	}
 
 	getHeaderName = (sortBy, contextBy) => {

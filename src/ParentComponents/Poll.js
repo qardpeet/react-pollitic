@@ -7,42 +7,66 @@ import axios from 'axios';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
 import Footer from '../ChildComponents/Footer';
 import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
+import cancelablePromise from '../ChildComponents/FunctionalComponents/cancelablePromise';
 
 class Poll extends Component {
 	state = {
 		status: 'pending'
 	}
 
+	pendingPromises = [];
+
 	componentDidMount() {
 		this.getApiData(this.props.match.params.poll_id);
 	}
 
 	componentWillUnmount() {
-		this.cancelTokenSource && this.cancelTokenSource.cancel();
+		this.pendingPromises.map(p => p.cancel());
+	}
+
+	appendPendingPromise = promise => {
+		this.pendingPromises = [...this.pendingPromises, promise];
+	}
+
+	removePendingPromise = promise => {
+		this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 	}
 
 	getApiData = (pollId) => {
-		this.cancelTokenSource = axios.CancelToken.source();
-		this.setState({status: 'pending'});
+		this.setStatus('pending');
 
-		axios.get(`https://pollitic.herokuapp.com/api/poll/${pollId}/view`,{
-			cancelToken: this.cancelTokenSource.token
-			})
+		const wrappedPromise = cancelablePromise(
+			axios.get(`https://pollitic.herokuapp.com/api/poll/${pollId}/view`)
+		);	
+		
+		this.appendPendingPromise(wrappedPromise);
+
+		return wrappedPromise.promise	
 			.then(response => {
 				this.setState({
 					apiData: response.data,
 					status: response.statusText
 				});
 			})
+			.then(() => this.removePendingPromise(wrappedPromise))
 			.catch(error => {
-				if(axios.isCancel(error)){
-					console.log('Cancelled API Request!');
-				} else {
-					this.setState({
-						status: error.response.statusText,
-					});
+				if (!error.isCanceled) {
+					this.setState({ status: error.response.statusText });
+					this.removePendingPromise(wrappedPromise);
 				}
 			});		
+	}
+
+	setStatus = (status) => {
+		const wrappedPromise = cancelablePromise(
+			new Promise(r => 
+				this.setState({
+					status: status
+				})
+			)
+		);
+		this.appendPendingPromise(wrappedPromise);
+		return wrappedPromise.promise;
 	}
 
 	render() {

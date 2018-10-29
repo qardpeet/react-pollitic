@@ -3,6 +3,7 @@ import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import PollDisplay from './FunctionalComponents/PollDisplay';
 import PreLoader from './FunctionalComponents/PreLoader';
 import axios from 'axios';
+import cancelablePromise from './FunctionalComponents/cancelablePromise';
 
 const apiLink = 'http://pollitic.herokuapp.com/api/ongoing';
 
@@ -16,40 +17,64 @@ class PollsMin extends Component {
 		status: 'pending'
 	}
 
+	pendingPromises = [];
+
 	componentDidMount() {
 		this.getApiData(this.props.sort);
 	}
 
 	componentWillUnmount() {
-		this.cancelTokenSource && this.cancelTokenSource.cancel();
+		this.pendingPromises.map(p => p.cancel());
+	}
+
+	appendPendingPromise = promise => {
+		this.pendingPromises = [...this.pendingPromises, promise];
+	}
+
+	removePendingPromise = promise => {
+		this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 	}
 
 	getApiData = (sortBy) => {
-		this.cancelTokenSource = axios.CancelToken.source();
-		this.setState({status: 'pending'});
+		this.setStatus('pending');
 
-		axios.get(apiLink, {
-			cancelToken: this.cancelTokenSource.token,
-			params: {
-				number: 4,
-				sort: sortBy
-			}
+		const wrappedPromise = cancelablePromise(
+			axios.get(apiLink, {
+				params: {
+					number: 4,
+					sort: sortBy
+				}
 			})
+		);
+
+		this.appendPendingPromise(wrappedPromise);
+
+		return wrappedPromise.promise
 			.then(response => {
 				this.setState({
 					apiData: response.data,
 					status: response.statusText
 				});
 			})
+			.then(() => this.removePendingPromise(wrappedPromise))
 			.catch(error => {
-				if(axios.isCancel(error)){
-					console.log('Cancelled API Request!');
-				} else {
-					this.setState({
-						status: error.response.statusText,
-					});
-				}			
+				if (!error.isCanceled) {
+					this.setState({ status: error.response.statusText });
+					this.removePendingPromise(wrappedPromise);
+				}		
 			});		
+	}
+
+	setStatus = (status) => {
+		const wrappedPromise = cancelablePromise(
+			new Promise(r => 
+				this.setState({
+					status: status
+				})
+			)
+		);
+		this.appendPendingPromise(wrappedPromise);
+		return wrappedPromise.promise;
 	}
 
 	render() {
