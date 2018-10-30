@@ -6,10 +6,10 @@ import logo from '../assets/img/logo.png';
 class Navbar extends Component {
 	state = {
 		buttons: [
-			{name: 'მთავარი', url: '/', id: '0'},
-			{name: 'კონტროვერსიალური', url: '/polls?sort=hot&context=ongoing', id: '1'},
-			{name: 'ახალი', url: '/polls?sort=new&context=ongoing', id: '2'},
-			{name: 'დასრულებული', url: '/polls?sort=hot&context=closed', id: '3'}
+			{name: 'მთავარი', url: '/'},
+			{name: 'კონტროვერსიალური', url: '/polls?sort=hot&context=ongoing'},
+			{name: 'ახალი', url: '/polls?sort=new&context=ongoing'},
+			{name: 'დასრულებული', url: '/polls?sort=hot&context=closed'}
 		],
 		sideNavActive: false
 	}

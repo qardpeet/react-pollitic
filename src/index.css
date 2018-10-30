@@ -171,6 +171,10 @@ nav .brand-logo {
   margin-left: auto;
 }
 
+.pollitic-pad {
+  padding: 25px;
+}
+
 @media only screen and (max-width: 601px) {
   h1 {
     font-size: 30px;

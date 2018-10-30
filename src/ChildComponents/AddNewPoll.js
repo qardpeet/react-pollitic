@@ -63,7 +63,7 @@ class AddNewPoll extends Component {
 			<React.Fragment>
 				<h3>ახალი პოლის დამატება</h3>
 				<form onSubmit={this.handleSubmit}>
-					<div className="row">
+					<div className="row pollitic-pad">
 						<div className="input-field col s12">
 							<input onChange={this.handleChange} value={this.state.name} placeholder="Pollitic კარგი საიტია?" name="name" type="text" className="validate"/>
 							<label className="active">პოლის სათაური<span className="important">*</span></label>
@@ -102,11 +102,16 @@ class AddNewPoll extends Component {
 							</select>
 							<label className="active">ხანგრძლივობა<span className="important">*</span></label>
                         </div>
-						<div className="input-field col s12 m6">
-							<input onChange={this.handleFileUpload} value={this.state.image} placeholder="" name="image" type="file" className="validate"/>
-							<label className="active">სურათი</label>
+						<div className="input-field file-field col s12 m6 pull-m6">
+							<div className="btn light-green darken-2">
+								<span>არჩევა</span>
+								<input type="file" onChange={this.handleFileUpload} value={this.state.image} name="image" />
+							</div>							
+							<div className="file-path-wrapper">
+								<input className="file-path validate" type="text" placeholder="სურათის ატვირთვა"/>
+							</div>
                         </div>
-						<div className="col s12">
+						<div className="col s12 m12">
 							<button className='btn main-btn'>დამატება</button>	
 						</div>						
 					</div>
