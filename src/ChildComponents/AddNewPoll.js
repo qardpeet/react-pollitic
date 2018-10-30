@@ -63,36 +63,36 @@ class AddNewPoll extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<h3>ახალი პოლის დამატება</h3>
 				<form onSubmit={this.handleSubmit}>
 					<div className="row pollitic-pad">
+						<div className="col s12"><h3>პოლის პარამეტრები</h3></div>
+						<div className="col s12">
+							<p className="pollitic-note"><span className="important">*</span>-ით მონიშნული ველების შევსება სავალდებულოა</p>
+						</div>
 						<div className="input-field col s12">
-							<input onChange={this.handleChange} value={this.state.name} placeholder="Pollitic კარგი საიტია?" name="name" type="text" className="validate"/>
-							<label className="active">პოლის სათაური<span className="important">*</span></label>
+							<p className="pollitic-label">სათაური<span className="important">*</span></p>
+							<input onChange={this.handleChange} value={this.state.name} placeholder="მთავარი კითხვა" name="name" type="text" className="validate"/>
                         </div>
 						<div className="input-field col s12">
-							<input onChange={this.handleChange} value={this.state.description} placeholder="გამოკითხვა Pollitic-ის შესახებ" name="description" type="text" className="validate"/>
-							<label className="active">პოლის აღწერა<span className="important">*</span></label>
+							<p className="pollitic-label">აღწერა<span className="important">*</span></p>
+							<input onChange={this.handleChange} value={this.state.description} placeholder="დამატებითი ინფორმაცია" name="description" type="text" className="validate"/>
                         </div>
 						<div className="input-field col s12 m6">
+							<p className="pollitic-label">სტატუსი<span className="important">*</span></p>
 							<select className="browser-default pollitic-select" value={this.state.isListed} onChange={this.handleChange} name="isListed">
 								<option value="True">საჯარო</option>
 								<option value="False">დამალული</option>
 							</select>
-							<label className="active">პოლის სტატუსი<span className="important">*</span></label>
                         </div>
 						<div className="input-field col s12 m6">
+							<p className="pollitic-label">SMS ვერიფიკაცია<span className="important">*</span></p>
 							<select className="browser-default pollitic-select" value={this.state.requirePhoneAuth} onChange={this.handleChange} name="requirePhoneAuth">
 								<option value="False">არასავალდებულო</option>
 								<option value="True">სავალდებულო</option>								
 							</select>
-							<label className="active">ტელეფონით ვერიფიკაცია<span className="important">*</span></label>
                         </div>
 						<div className="input-field col s12 m6">
-							<input onChange={this.handleChange} value={this.state.password} placeholder="" name="password" type="text" className="validate"/>
-							<label className="active">პაროლი</label>
-                        </div>
-						<div className="input-field col s12 m6">
+							<p className="pollitic-label">ხანგრძლივობა<span className="important">*</span></p>
 							<select className="browser-default pollitic-select" value={this.state.closingDate} onChange={this.handleChange} name="closingDate">
 								<option value="0.5">12 საათი</option>
 								<option value="1">1 დღე</option>
@@ -102,10 +102,14 @@ class AddNewPoll extends Component {
 								<option value="7">1 კვირა</option>
 								<option value="14">2 კვირა</option>								
 							</select>
-							<label className="active">ხანგრძლივობა<span className="important">*</span></label>
                         </div>
-						<div className="input-field file-field col s12 m6 pull-m6">
-							<div className="btn light-green darken-2">
+						<div className="input-field col s12 m6">
+							<p className="pollitic-label">პაროლი</p>
+							<input onChange={this.handleChange} value={this.state.password} name="password" type="password" className="validate"/>
+                        </div>
+						<div className="input-field file-field col s12 m6">
+							<p className="pollitic-label">სურათი</p>
+							<div className="btn-small light-green darken-2">
 								<span>არჩევა</span>
 								<input type="file" onChange={this.handleFileUpload} value={this.state.image} name="image" />
 							</div>							
@@ -113,8 +117,10 @@ class AddNewPoll extends Component {
 								<input className="file-path validate" type="text" placeholder="სურათის ატვირთვა"/>
 							</div>
                         </div>
+						<div className="col s12"><h3>პასუხები</h3></div>
+						<div className="col s12"><h3>კითხვები</h3></div>
 						<div className="col s12 m12">
-							<button className='btn main-btn'>დამატება</button>	
+							<button className='btn-large light-green darken-2 main-btn'>დამატება</button>	
 						</div>						
 					</div>
 				</form>	

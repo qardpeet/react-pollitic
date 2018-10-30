@@ -20,6 +20,14 @@ body {
   font-family: BPGarial, sans-serif;
 }
 
+input {
+  font-family: BPGarial, sans-serif;
+}
+
+select {
+  font-family: BPGarial, sans-serif;
+}
+
 h1 {
   font-size: 40px;
   font-family: BPGweb;
@@ -34,7 +42,7 @@ h3 {
 
 button {
   font-size: 18px;
-  font-family: BPGweb;
+  font-family: BPGweb, sans-serif;
 }
 
 nav .brand-logo {
@@ -154,7 +162,7 @@ nav .brand-logo {
 
 .important {
   color: red;
-  font-size: 20px;
+  font-size: inherit;
 }
 
 .pollitic-select {
@@ -173,6 +181,12 @@ nav .brand-logo {
 
 .pollitic-pad {
   padding: 25px;
+}
+
+.pollitic-label {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
 }
 
 @media only screen and (max-width: 601px) {
