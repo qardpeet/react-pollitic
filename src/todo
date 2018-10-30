@@ -3,7 +3,7 @@
 ***Code the Poll component
 ***Code the NewPoll component 
 ------------------------------------------------------------------------
-
+** Display appropriate text if no polls exist
 ------------------------------------------------------------------------
 
 

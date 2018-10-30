@@ -8,6 +8,11 @@
   src: url(./assets/fonts/bpg_web_001_caps.ttf);
 }
 
+@font-face {
+  font-family: BPGitalic;
+  src: url(./assets/fonts/bpg_phone_sans_italic.ttf);
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -18,6 +23,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f4f7ff;
   font-family: BPGarial, sans-serif;
+}
+
+hr {
+  border: 1px solid #ebebeb;
 }
 
 input {
@@ -189,9 +198,37 @@ nav .brand-logo {
   font-size: 14px;
 }
 
+.pollitic-cs-list {
+  display: inline;
+  list-style: none;   
+}
+
+.pollitic-cs-list li {
+  display: inline;
+  font-family: BPGitalic, BPGarial, sans-serif;
+  font-size: 14px;
+  transition: color 150ms;
+}
+
+.pollitic-cs-list li:hover {
+  color: rgb(250, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.pollitic-cs-list li:after {
+  content: ", ";
+}
+
+.pollitic-cs-list li:last-child:after {
+  content: "";
+}
+
 @media only screen and (max-width: 601px) {
   h1 {
     font-size: 30px;
+  }
+  .pollitic-pad {
+    padding: 0;
   }
 }
 
