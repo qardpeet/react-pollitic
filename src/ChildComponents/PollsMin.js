@@ -11,8 +11,7 @@ class PollsMin extends Component {
 	state = {
 		headers: {
 			new: 'ახალი',
-			hot: 'კონტროვერსიალური',
-			closed: 'დასრულებული'
+			hot: 'კონტროვერსიალური'
 		},
 		status: 'pending'
 	}

@@ -29,8 +29,10 @@ class AddNewPoll extends Component {
 		}
 
 		console.log(formData);
+	}
 
-		// axios.post('http://pollitic.herokuapp.com/api/poll/create', formData)
+	postApiData = (data) => {
+		// axios.post('http://pollitic.herokuapp.com/api/poll/create', data)
 		// 	.then(response => {
 		// 		console.log(response);
 		// 	})
