@@ -152,6 +152,25 @@ nav .brand-logo {
   background-color: white;
 }
 
+.important {
+  color: red;
+  font-size: 20px;
+}
+
+.pollitic-select {
+  border: 0px;
+  border-bottom: 2px solid rgb(76, 175, 80);
+}
+
+.pollitic-select:focus {
+  outline: none;
+}
+
+.main-btn {
+  display: block;
+  margin-left: auto;
+}
+
 @media only screen and (max-width: 601px) {
   h1 {
     font-size: 30px;
