@@ -37,7 +37,9 @@ class PollsFull extends Component {
 	}
 	
 	getApiData = (sortBy, contextBy) => {
-		this.setStatus('pending');
+		this.setState({
+			status: 'pending'
+		});
 
 		const wrappedPromise = cancelablePromise(
 			axios.get(apiLink + contextBy, {
@@ -63,18 +65,6 @@ class PollsFull extends Component {
 				  this.removePendingPromise(wrappedPromise);
 				}
 			});
-	}
-
-	setStatus = (status) => {
-		const wrappedPromise = cancelablePromise(
-			new Promise(r => 
-				this.setState({
-					status: status
-				})
-			)
-		);
-		this.appendPendingPromise(wrappedPromise);
-		return wrappedPromise.promise;
 	}
 
 	getHeaderName = (sortBy, contextBy) => {

@@ -3,6 +3,9 @@ import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import AddCandidate from './AddCandidate';
 import AddQuestion from './AddQuestion';
 import ArrayToList from './FunctionalComponents/ArrayToList';
+import cancelablePromise from '../helpers/cancelablePromise';
+import PreLoader from './FunctionalComponents/PreLoader';
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 class AddNewPoll extends Component {
@@ -18,7 +21,21 @@ class AddNewPoll extends Component {
 			closingDate: '1',
 			image: null
 		},
-		status: 'fill'
+		status: 'waitingForUser'
+	}
+
+	pendingPromises = [];
+
+	componentWillUnmount() {
+		this.pendingPromises.map(p => p.cancel());
+	}
+
+	appendPendingPromise = promise => {
+		this.pendingPromises = [...this.pendingPromises, promise];
+	}
+
+	removePendingPromise = promise => {
+		this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 	}
 
 	handleSubmit = (e) => {
@@ -44,18 +61,55 @@ class AddNewPoll extends Component {
 	}
 
 	postApiData = (data) => {
-		axios.post('http://pollitic.herokuapp.com/api/poll/create', data, 
+		this.setState({
+			status: 'pending'
+		});
+
+		const wrappedPromise = cancelablePromise(
+			axios.post('http://pollitic.herokuapp.com/api/poll/create', data, 
 			{ 
 				headers: { 
 					'content-type': 'application/x-www-form-urlencoded'
 				}
 			})
+		);
+
+		this.appendPendingPromise(wrappedPromise);
+
+		return wrappedPromise.promise
 			.then(response => {
-				console.log(response);
+				this.displayMessage(response);
 			})
+			.then(() => this.removePendingPromise(wrappedPromise))
 			.catch(error => {
-				console.log(error.response);
+				if (!error.isCanceled) {
+					this.displayMessage(error.response);
+					this.removePendingPromise(wrappedPromise);
+				}
 			});
+	}
+
+	displayMessage = (response) => {
+		if (response.statusText === 'OK') {
+			if (response.data.status === 'success') {
+				this.setState({
+					status: 'success',
+					newPollId: response.data.data.poll.id
+				});
+				this.props.setModal(true, true, 'გილოცავთ', response.data.message);
+			} else if (response.data.status === 'error') {
+				this.setState({
+					status: 'waitingForUser'
+				});
+				this.props.setModal(true, false, 'შეცდომა', response.data.error);
+			}
+		} else {
+			this.setState({
+				status: 'waitingForUser'
+			});
+			this.props.setModal(true, false, 'შეცდომა', 'გთხოვთ კიდევ სცადოთ პოლის დამატება ან მოგვწერეთ ჩვენს ფეისბუქ გვერდზე. მადლობა!');
+			console.log(response);
+		}
 	}
 
 	handleChange = (e) => {
@@ -112,8 +166,10 @@ class AddNewPoll extends Component {
 	}
 
 	render() {
-		return (
-			<React.Fragment>
+		let view;
+
+		if (this.state.status === 'waitingForUser') {
+			view = (
 				<form onSubmit={this.handleSubmit}>
 					<div className="row pollitic-pad">
 						<div className="col s12"><h3>პოლის პარამეტრები</h3></div>
@@ -186,6 +242,16 @@ class AddNewPoll extends Component {
 						</div>						
 					</div>
 				</form>	
+			);
+		} else if (this.state.status === 'success') {
+			view = <Redirect to={`/poll/${this.state.newPollId}`}/>;
+		} else {
+			view = <PreLoader />;
+		}
+
+		return (
+			<React.Fragment>
+				{view}
 			</React.Fragment>
 		);
 	}

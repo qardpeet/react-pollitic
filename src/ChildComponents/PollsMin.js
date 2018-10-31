@@ -35,7 +35,9 @@ class PollsMin extends Component {
 	}
 
 	getApiData = (sortBy) => {
-		this.setStatus('pending');
+		this.setState({
+			status: 'pending'
+		});
 
 		const wrappedPromise = cancelablePromise(
 			axios.get(apiLink, {
@@ -62,18 +64,6 @@ class PollsMin extends Component {
 					this.removePendingPromise(wrappedPromise);
 				}		
 			});		
-	}
-
-	setStatus = (status) => {
-		const wrappedPromise = cancelablePromise(
-			new Promise(r => 
-				this.setState({
-					status: status
-				})
-			)
-		);
-		this.appendPendingPromise(wrappedPromise);
-		return wrappedPromise.promise;
 	}
 
 	render() {

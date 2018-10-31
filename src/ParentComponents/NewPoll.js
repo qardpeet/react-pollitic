@@ -1,16 +1,12 @@
 import React from 'react';
-import Navbar from '../ChildComponents/Navbar';
 import AddNewPoll from '../ChildComponents/AddNewPoll';
 import PollsMin from '../ChildComponents/PollsMin';
-import Footer from '../ChildComponents/Footer';
 
-const NewPoll = () => {
+const NewPoll = (props) => {
 	return (
 		<React.Fragment>
-			<Navbar />
-			<AddNewPoll />
+			<AddNewPoll setModal={props.setModal} />
 			<PollsMin sort='hot' />
-			<Footer />
 		</React.Fragment>			
 	);
 }

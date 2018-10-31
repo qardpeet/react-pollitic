@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Navbar from '../ChildComponents/Navbar';
 import axios from 'axios';
 import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
@@ -7,7 +6,6 @@ import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
 // import MainChart from '../ChildComponents/FunctionalComponents/MainChart';
 // import VotePoll from '../ChildComponents/VotePoll';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
-import Footer from '../ChildComponents/Footer';
 
 class Poll extends Component {
 	state = {
@@ -33,7 +31,9 @@ class Poll extends Component {
 	}
 
 	getApiData = (pollId) => {
-		this.setStatus('pending');
+		this.setState({
+			status: 'pending'
+		});
 
 		const wrappedPromise = cancelablePromise(
 			axios.get(`https://pollitic.herokuapp.com/api/poll/${pollId}/view`)
@@ -57,23 +57,9 @@ class Poll extends Component {
 			});		
 	}
 
-	setStatus = (status) => {
-		const wrappedPromise = cancelablePromise(
-			new Promise(r => 
-				this.setState({
-					status: status
-				})
-			)
-		);
-		this.appendPendingPromise(wrappedPromise);
-		return wrappedPromise.promise;
-	}
-
 	render() {
 		return (
 			<React.Fragment>
-				<Navbar />
-
 				{ this.state.status === 'OK' ? (
 					<div className="container">
 						<div className="row">
@@ -81,9 +67,6 @@ class Poll extends Component {
 						</div>				
 					</div>
 				) : <PreLoader /> }
-
-
-				<Footer />
 			</React.Fragment>
 		);
 	}

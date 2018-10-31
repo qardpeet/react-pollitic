@@ -223,6 +223,29 @@ nav .brand-logo {
   content: "";
 }
 
+.pollitic-modal-success,
+.pollitic-modal-warn {
+  color: #ff516f;
+  font-size: 16px;
+  font-family: BPGweb;
+}
+
+.pollitic-modal-success {
+  color: #689f38;
+}
+
+.modal {
+  border-radius: 15px;
+}
+
+.modal .modal-header {
+  background-color: white;
+}
+
+.modal .modal-footer {
+  background-color: #f4f7ff;
+}
+
 @media only screen and (max-width: 601px) {
   h1 {
     font-size: 30px;
