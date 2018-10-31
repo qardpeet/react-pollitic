@@ -27,31 +27,24 @@ class AddNewPoll extends Component {
 		const closingDate = this.getClosingDate(parseInt(this.state.userInput.closingDate));
 		
 		for (let key in this.state.userInput) {
-			if (key === 'closingDate') {
-				formData.set(key, closingDate);
-			} else if (key === 'image') {
-				formData.append('image', this.state.userInput[key]);
-			} else if (key === 'candidates') {
+			if (Array.isArray(this.state.userInput[key])) {
 				for (let i in this.state.userInput[key]) {
-					formData.append('candidates[]', this.state.userInput[key][i]);
-				}
-			} else if (key === 'questions') {
-				for (let i in this.state.userInput[key]) {
-					formData.append('questions[]', this.state.userInput[key][i]);
+					formData.append(`${key}[]`, this.state.userInput[key][i]);
 				}
 			} else {
-				formData.set(key, this.state.userInput[key]);
-			}		
+				if (key === 'closingDate') {
+					formData.append(key, closingDate);
+				} else {
+					formData.append(key, this.state.userInput[key]);
+				}
+			}
 		}
 		
-
 		this.postApiData(formData);
 	}
 
 	postApiData = (data) => {
-		axios.post(
-			'http://pollitic.herokuapp.com/api/poll/create', 
-			data, 
+		axios.post('http://pollitic.herokuapp.com/api/poll/create', data, 
 			{ 
 				headers: { 
 					'content-type': 'application/x-www-form-urlencoded'
