@@ -18,12 +18,25 @@ class AddCandidate extends Component {
         });
     }
 
+    handleKeyUp = (e) => {
+        if (e.keyCode === 13) {
+            this.addQuestion();
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div className="row">
                     <div className="col s12">
-                        <input type="text" value={this.state.question} onChange={this.handleChange} className="validate" />
+                        <input 
+                            onKeyUp={this.handleKeyUp} 
+                            type="text" 
+                            value={this.state.question} 
+                            onChange={this.handleChange} 
+                            className="validate"
+                            maxLength="120" 
+                        />
                     </div>
                     <div className="col s12">
                         <div className="btn light-green darken-2" onClick={this.addQuestion}>+</div>

@@ -221,6 +221,7 @@ nav .brand-logo {
   font-family: BPGitalic, BPGarial, sans-serif;
   font-size: 14px;
   transition: color 150ms;
+  word-break: break-all;
 }
 
 .pollitic-cs-list li:hover {
@@ -284,6 +285,9 @@ nav .brand-logo {
   }
   .pollitic-pad {
     padding: 0;
+  }
+  .pollitic-cs-list li:hover {
+    color: inherit;
   }
 }
 

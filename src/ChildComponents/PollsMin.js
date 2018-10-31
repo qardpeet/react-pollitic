@@ -22,6 +22,12 @@ class PollsMin extends Component {
 		this.getApiData(this.props.sort);
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.sort !== prevProps.sort) {
+			this.getApiData(this.props.sort);
+		}		
+	}
+
 	componentWillUnmount() {
 		this.pendingPromises.map(p => p.cancel());
 	}
