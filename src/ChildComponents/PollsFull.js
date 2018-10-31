@@ -4,6 +4,7 @@ import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from './FunctionalComponents/PreLoader';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import PollDisplay from './FunctionalComponents/PollDisplay';
+import { Redirect } from 'react-router-dom';
 
 const apiLink = 'http://pollitic.herokuapp.com/api/';
 
@@ -53,15 +54,17 @@ class PollsFull extends Component {
 
 		return wrappedPromise.promise
 			.then(response => {
-				this.setState({
-					apiData: response.data,
-					status: response.statusText
-				});
+				if (response.data.status === 'success') {
+					this.setState({
+						apiData: response.data,
+						status: response.statusText
+					});
+				}
 			})
 			.then(() => this.removePendingPromise(wrappedPromise))
-			.catch(error => {
-				if (!error.isCanceled) {
-				  this.setState({ status: error.response.statusText });
+			.catch(response => {
+				if (!response.isCanceled) {
+				  this.setState({ status: response.error.response.statusText });
 				  this.removePendingPromise(wrappedPromise);
 				}
 			});
@@ -74,14 +77,20 @@ class PollsFull extends Component {
 	}
     
     render() {
-        return(
-            <React.Fragment>
-                <h3>{this.getHeaderName(this.props.sort, this.props.context)}</h3>
-				<div className="row">
-                    { this.state.status === 'OK' ? (<PollDisplay polls={this.state.apiData.data.polls} size='large' />) : (<PreLoader />)}
-				</div>                
-            </React.Fragment> 
-        ); 
+		if (this.state.status === 'OK') {
+			return (
+				<React.Fragment>
+					<h3>{this.getHeaderName(this.props.sort, this.props.context)}</h3>
+					<div className="row">
+						<PollDisplay polls={this.state.apiData.data.polls} size='large' />
+					</div>                
+				</React.Fragment> 
+			);
+		} else if (this.state.status === 'Not Found') {
+			return <Redirect to={'/404'}/>;
+		}
+
+        return <PreLoader />; 
     }
 }
 

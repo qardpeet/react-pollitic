@@ -4,6 +4,7 @@
 ***Code the NewPoll component 
 ------------------------------------------------------------------------
 ** Display appropriate text if no polls exist
+** Add questions and answers by hitting enter
 ------------------------------------------------------------------------
 
 

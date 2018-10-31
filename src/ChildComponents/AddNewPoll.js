@@ -5,7 +5,7 @@ import AddQuestion from './AddQuestion';
 import ArrayToList from './FunctionalComponents/ArrayToList';
 import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from './FunctionalComponents/PreLoader';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class AddNewPoll extends Component {
@@ -166,10 +166,8 @@ class AddNewPoll extends Component {
 	}
 
 	render() {
-		let view;
-
 		if (this.state.status === 'waitingForUser') {
-			view = (
+			return (
 				<form onSubmit={this.handleSubmit}>
 					<div className="row pollitic-pad">
 						<div className="col s12"><h3>პოლის პარამეტრები</h3></div>
@@ -244,16 +242,10 @@ class AddNewPoll extends Component {
 				</form>	
 			);
 		} else if (this.state.status === 'success') {
-			view = <Redirect to={`/poll/${this.state.newPollId}`}/>;
-		} else {
-			view = <PreLoader />;
+			return <Redirect to={`/poll/${this.state.newPollId}`}/>;
 		}
 
-		return (
-			<React.Fragment>
-				{view}
-			</React.Fragment>
-		);
+		return <PreLoader />;
 	}
 }
 

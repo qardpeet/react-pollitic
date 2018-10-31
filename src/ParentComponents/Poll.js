@@ -3,6 +3,7 @@ import axios from 'axios';
 import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
 import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
+import { Redirect } from 'react-router-dom';
 // import MainChart from '../ChildComponents/FunctionalComponents/MainChart';
 // import VotePoll from '../ChildComponents/VotePoll';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
@@ -43,32 +44,37 @@ class Poll extends Component {
 
 		return wrappedPromise.promise	
 			.then(response => {
-				this.setState({
-					apiData: response.data,
-					status: response.statusText
-				});
+				if (response.data.status === 'success') {
+					this.setState({
+						apiData: response.data,
+						status: response.statusText
+					});
+				}
 			})
 			.then(() => this.removePendingPromise(wrappedPromise))
-			.catch(error => {
-				if (!error.isCanceled) {
-					this.setState({ status: error.response.statusText });
+			.catch(response => {
+				if (!response.isCanceled) {
+					this.setState({ status: response.error.response.statusText });					
 					this.removePendingPromise(wrappedPromise);
 				}
 			});		
 	}
 
 	render() {
-		return (
-			<React.Fragment>
-				{ this.state.status === 'OK' ? (
+		if (this.state.status === 'OK') {
+			return (
+				<React.Fragment>
 					<div className="container">
 						<div className="row">
 							<PollDisplay size='large' polls={[this.state.apiData.data.poll]}/>
 						</div>				
 					</div>
-				) : <PreLoader /> }
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		} else if (this.state.status === 'Not Found') {
+			return <Redirect to={'/404'}/>;
+		}
+		return <PreLoader />;
 	}
 }
 

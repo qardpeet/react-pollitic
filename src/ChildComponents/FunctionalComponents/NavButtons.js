@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NavButtons = ({buttons}) => {
+const NavButtons = ({buttons, closeSideNav}) => {
     const buttonsList = buttons.map((button, index) => {
-        return (<li key={index}><Link to={button.url}>{button.name}</Link></li>);
+        return (<li onClick={closeSideNav} key={index}><Link to={button.url}>{button.name}</Link></li>);
     });
 
     return (

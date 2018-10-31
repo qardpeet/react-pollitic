@@ -32,11 +32,11 @@ class Navbar extends Component {
 					<div className="nav-wrapper container">
 						<Link to='/' className="brand-logo"><img src={logo} alt="logo"/></Link>
 						<ul className="right hide-on-med-and-down">
-							<NavButtons buttons={this.state.buttons}/>
+							<NavButtons closeSideNav={this.handleClose} buttons={this.state.buttons}/>
 						</ul>
 
 						<ul className="sidenav" style={sideNavStyle}>
-							<NavButtons buttons={this.state.buttons}/>
+							<NavButtons closeSideNav={this.handleClose} buttons={this.state.buttons}/>
 						</ul>
 						<a href="/" onClick={this.handleOpen} className="sidenav-trigger"><i className="material-icons">menu</i></a>
 					</div>

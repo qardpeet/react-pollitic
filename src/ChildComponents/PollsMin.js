@@ -52,29 +52,35 @@ class PollsMin extends Component {
 
 		return wrappedPromise.promise
 			.then(response => {
-				this.setState({
-					apiData: response.data,
-					status: response.statusText
-				});
+				if (response.data.status === 'success') {
+					this.setState({
+						apiData: response.data,
+						status: response.statusText
+					});
+				}
 			})
 			.then(() => this.removePendingPromise(wrappedPromise))
-			.catch(error => {
-				if (!error.isCanceled) {
-					this.setState({ status: error.response.statusText });
+			.catch(response => {
+				if (!response.isCanceled) {
+					this.setState({ status: response.error.response.statusText });
 					this.removePendingPromise(wrappedPromise);
 				}		
 			});		
 	}
 
 	render() {
-		return (
-			<React.Fragment>
-				<h3>{this.state.headers[this.props.sort]}</h3>
-				<div className="row">
-					{ this.state.status === 'OK' ? (<PollDisplay polls={this.state.apiData.data.polls} size='small' />) : (<PreLoader />) }
-				</div>
-			</React.Fragment>
-		);
+		if (this.state.status === 'OK') {
+			return(
+				<React.Fragment>
+					<h3>{this.state.headers[this.props.sort]}</h3>
+					<div className="row">
+						<PollDisplay polls={this.state.apiData.data.polls} size='small' />
+					</div>
+				</React.Fragment>
+			);
+		}
+
+		return <PreLoader />;
 	}
 }
 

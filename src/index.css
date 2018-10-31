@@ -13,15 +13,24 @@
   src: url(./assets/fonts/bpg_phone_sans_italic.ttf);
 }
 
-body {
+#root {
+  height: 100%;
+  position: relative;
+}
+
+html, body {
+  height: 100%;
   margin: 0;
+}
+
+body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f4f7ff;
+  background-color: #fed253;
   font-family: BPGarial, sans-serif;
 }
 
@@ -165,8 +174,12 @@ nav .brand-logo {
 }
 
 .pollitic-footer {
-  padding: 10px;
+  height: 50px;
   background-color: white;
+}
+
+.push {
+  height: 50px;
 }
 
 .important {
@@ -244,6 +257,25 @@ nav .brand-logo {
 
 .modal .modal-footer {
   background-color: #f4f7ff;
+}
+
+.pollitic-404 h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.pollitic-404 h4 {
+  margin: 10px 0;
+  padding: 0;
+}
+
+.pollitic-404 p {
+  margin-top: 40px;
+}
+
+.pollitic-content {
+  min-height: 100%;
+  margin: 0 auto -50px;
 }
 
 @media only screen and (max-width: 601px) {
