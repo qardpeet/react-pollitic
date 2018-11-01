@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
-import AddCandidate from './AddCandidate';
-import AddQuestion from './AddQuestion';
+import AddFormItem from './AddFormItem';
 import ArrayToList from './FunctionalComponents/ArrayToList';
 import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from './FunctionalComponents/PreLoader';
@@ -9,304 +8,360 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class AddNewPoll extends Component {
-	state = {
-		userInput: {
-			name: '',
-			description: '',
-			password: '',
-			requirePhoneAuth: 'False',
-			isListed: 'True',
-			candidates: [],
-			questions: [],
-			closingDate: '1',
-			image: null
-		},
-		status: 'waitingForUser'
-	}
+    state = {
+        userInput: {
+            name: '',
+            description: '',
+            password: '',
+            requirePhoneAuth: 'False',
+            isListed: 'True',
+            candidates: [],
+            questions: [],
+            closingDate: '1',
+            image: null,
+        },
+        status: 'waitingForUser',
+    };
 
-	refsCollection = {};
+    refsCollection = {};
 
-	pendingPromises = [];
+    pendingPromises = [];
 
-	componentDidMount() {
-		this.refsCollection.name.focus();
-	}
+    componentDidMount() {
+        this.refsCollection.name.focus();
+    }
 
-	componentWillUnmount() {
-		this.pendingPromises.map(p => p.cancel());
-	}
+    componentWillUnmount() {
+        this.pendingPromises.map(p => p.cancel());
+    }
 
-	appendPendingPromise = promise => {
-		this.pendingPromises = [...this.pendingPromises, promise];
-	}
+    appendPendingPromise = promise => {
+        this.pendingPromises = [...this.pendingPromises, promise];
+    };
 
-	removePendingPromise = promise => {
-		this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
-	}
+    removePendingPromise = promise => {
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+    };
 
-	postApiData = (data) => {
-		this.setState({
-			status: 'pending'
-		});
+    postApiData = data => {
+        this.setState({
+            status: 'pending',
+        });
 
-		const wrappedPromise = cancelablePromise(
-			axios.post('http://pollitic.herokuapp.com/api/poll/create', data, 
-			{ 
-				headers: { 
-					'content-type': 'application/x-www-form-urlencoded'
-				}
-			})
-		);
+        const wrappedPromise = cancelablePromise(
+            axios.post('http://pollitic.herokuapp.com/api/poll/create', data, {
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                },
+            })
+        );
 
-		this.appendPendingPromise(wrappedPromise);
+        this.appendPendingPromise(wrappedPromise);
 
-		return wrappedPromise.promise
-			.then(response => {
-				this.displayMessage(response);
-			})
-			.then(() => this.removePendingPromise(wrappedPromise))
-			.catch(error => {
-				if (!error.isCanceled) {
-					this.displayMessage(error.response);
-					this.removePendingPromise(wrappedPromise);
-				}
-			});
-	}
+        return wrappedPromise.promise
+            .then(response => {
+                this.displayMessage(response);
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(error => {
+                if (!error.isCanceled) {
+                    this.displayMessage(error.response);
+                    this.removePendingPromise(wrappedPromise);
+                }
+            });
+    };
 
-	displayMessage = (response) => {
-		if (response.statusText === 'OK') {
-			if (response.data.status === 'success') {
-				this.setState({
-					status: 'success',
-					newPollId: response.data.data.poll.id
-				});
-				this.props.setModal(true, true, 'გილოცავთ', response.data.message);
-			} else if (response.data.status === 'error') {
-				this.setState({
-					status: 'waitingForUser'
-				});
-				this.props.setModal(true, false, 'შეცდომა', response.data.error);
-			}
-		} else {
-			this.setState({
-				status: 'waitingForUser'
-			});
-			this.props.setModal(true, false, 'შეცდომა', 'გთხოვთ კიდევ სცადოთ პოლის დამატება ან მოგვწერეთ ჩვენს ფეისბუქ გვერდზე. მადლობა!');
-			console.log(response);
-		}
-	}
+    displayMessage = response => {
+        if (response.statusText === 'OK') {
+            if (response.data.status === 'success') {
+                this.setState({
+                    status: 'success',
+                    newPollId: response.data.data.poll.id,
+                });
+                this.props.setModal(
+                    true,
+                    true,
+                    'გილოცავთ',
+                    response.data.message
+                );
+            } else if (response.data.status === 'error') {
+                this.setState({
+                    status: 'waitingForUser',
+                });
+                this.props.setModal(
+                    true,
+                    false,
+                    'შეცდომა',
+                    response.data.error
+                );
+            }
+        } else {
+            this.setState({
+                status: 'waitingForUser',
+            });
+            this.props.setModal(
+                true,
+                false,
+                'შეცდომა',
+                'გთხოვთ კიდევ სცადოთ პოლის დამატება ან მოგვწერეთ ჩვენს ფეისბუქ გვერდზე. მადლობა!'
+            );
+            console.log(response);
+        }
+    };
 
-	handleSubmit = () => {
-		window.scrollTo(0, 0);
-		let formData = new FormData();
-		const closingDate = this.getClosingDate(parseInt(this.state.userInput.closingDate));
-		
-		for (let key in this.state.userInput) {
-			if (Array.isArray(this.state.userInput[key])) {
-				for (let i in this.state.userInput[key]) {
-					formData.append(`${key}[]`, this.state.userInput[key][i]);
-				}
-			} else {
-				if (key === 'closingDate') {
-					formData.append(key, closingDate);
-				} else {
-					formData.append(key, this.state.userInput[key]);
-				}
-			}
-		}
-		
-		this.postApiData(formData);
-	}
+    handleSubmit = () => {
+        window.scrollTo(0, 0);
+        let formData = new FormData();
+        const closingDate = this.getClosingDate(
+            parseInt(this.state.userInput.closingDate)
+        );
 
-	handleKeyUp = (e, nextInput) => {
-		if (e.keyCode === 13) {
-			this.refsCollection[nextInput].focus();
-		}
-	}
+        for (let key in this.state.userInput) {
+            if (Array.isArray(this.state.userInput[key])) {
+                for (let i in this.state.userInput[key]) {
+                    formData.append(`${key}[]`, this.state.userInput[key][i]);
+                }
+            } else {
+                if (key === 'closingDate') {
+                    formData.append(key, closingDate);
+                } else {
+                    formData.append(key, this.state.userInput[key]);
+                }
+            }
+        }
 
-	handleChange = (e) => {
-		this.setState({
-			userInput: {...this.state.userInput, [e.target.name]: e.target.value}
-		});
-	}
+        this.postApiData(formData);
+    };
 
-	handleFileUpload = (e) => {
-		this.setState({
-			userInput: {...this.state.userInput, [e.target.name]: e.target.files[0]}
-		});
-	}
+    handleKeyUp = (e, nextInput) => {
+        if (e.keyCode === 13) {
+            this.refsCollection[nextInput].focus();
+        }
+    };
 
-	addCandidate = (candidate) => {
-		if(candidate !== '') {
-			this.setState({
-				userInput: {...this.state.userInput, candidates: [...this.state.userInput.candidates, candidate]}
-			});
-		}
-	}
+    handleChange = e => {
+        this.setState({
+            userInput: {
+                ...this.state.userInput,
+                [e.target.name]: e.target.value,
+            },
+        });
+    };
 
-	removeCandidate = (e) => {
-		const newCandidates = this.state.userInput.candidates.filter(candidate => {
-			return candidate !== e.target.innerHTML; 
-		});
-		this.setState({
-			userInput: {...this.state.userInput, candidates: [...newCandidates]}
-		});
-	}
+    handleFileUpload = e => {
+        this.setState({
+            userInput: {
+                ...this.state.userInput,
+                [e.target.name]: e.target.files[0],
+            },
+        });
+    };
 
-	addQuestion = (question) => {
-		if(question !== '') {
-			this.setState({
-				userInput: {...this.state.userInput, questions: [...this.state.userInput.questions, question]}
-			});
-		}
-	}
+    removeItem = (e, itemKey) => {
+        const newItems = this.state.userInput[itemKey].filter(item => {
+            return item !== e.target.innerHTML;
+        });
+        this.setState({
+            userInput: { ...this.state.userInput, [itemKey]: [...newItems] },
+        });
+    };
 
-	removeQuestion = (e) => {
-		const newQuestions = this.state.userInput.questions.filter(question => {
-			return question !== e.target.innerHTML; 
-		});
-		this.setState({
-			userInput: {...this.state.userInput, questions: [...newQuestions]}
-		});
-	}
+    addItem = (item, itemKey) => {
+        if (item !== '') {
+            this.setState({
+                userInput: {
+                    ...this.state.userInput,
+                    [itemKey]: [...this.state.userInput[itemKey], item],
+                },
+            });
+        }
+    };
 
-	getClosingDate = (days) => {
-		const currentTimeUnixMS = Date.now();
-		const currentTimeUnix = currentTimeUnixMS / 1000;
-		const roundedClosingDateUnix = Math.round(currentTimeUnix + (days * 86400));
-		return roundedClosingDateUnix.toString();
-	}
+    getClosingDate = days => {
+        const currentTimeUnixMS = Date.now();
+        const currentTimeUnix = currentTimeUnixMS / 1000;
+        const roundedClosingDateUnix = Math.round(
+            currentTimeUnix + days * 86400
+        );
+        return roundedClosingDateUnix.toString();
+    };
 
-	render() {
-		if (this.state.status === 'waitingForUser') {
-			return (
-					<div className="row pollitic-pad">
-						<div className="col s12"><h3>პოლის პარამეტრები</h3></div>
-						<div className="col s12">
-							<p className="pollitic-note"><span className="important">*</span>-ით მონიშნული ველების შევსება სავალდებულოა</p>
-						</div>
-						<div className="input-field col s12">
-							<p className="pollitic-label">სათაური<span className="important">*</span></p>
-							<input 
-								onChange={this.handleChange} 
-								value={this.state.userInput.name}
-								ref={(input) => this.refsCollection.name = input}
-								onKeyUp={(e) => this.handleKeyUp(e, 'description')}
-								maxLength="120"
-								placeholder="მთავარი კითხვა" 
-								name="name" 
-								type="text" 
-								className="validate" 
-							/>
+    render() {
+        if (this.state.status === 'waitingForUser') {
+            return (
+                <div className="row pollitic-pad">
+                    <div className="col s12">
+                        <h3>პოლის პარამეტრები</h3>
+                    </div>
+                    <div className="col s12">
+                        <p className="pollitic-note">
+                            <span className="important">*</span>
+                            -ით მონიშნული ველების შევსება სავალდებულოა
+                        </p>
+                    </div>
+                    <div className="input-field col s12">
+                        <p className="pollitic-label">
+                            სათაური
+                            <span className="important">*</span>
+                        </p>
+                        <input
+                            onChange={this.handleChange}
+                            value={this.state.userInput.name}
+                            ref={input => (this.refsCollection.name = input)}
+                            onKeyUp={e => this.handleKeyUp(e, 'description')}
+                            maxLength="120"
+                            placeholder="მთავარი კითხვა"
+                            name="name"
+                            type="text"
+                            className="validate"
+                        />
+                    </div>
+                    <div className="input-field col s12">
+                        <p className="pollitic-label">
+                            აღწერა
+                            <span className="important">*</span>
+                        </p>
+                        <input
+                            onChange={this.handleChange}
+                            value={this.state.userInput.description}
+                            ref={input =>
+                                (this.refsCollection.description = input)
+                            }
+                            placeholder="დამატებითი ინფორმაცია"
+                            name="description"
+                            type="text"
+                            className="validate"
+                            maxLength="250"
+                        />
+                    </div>
+                    <div className="input-field col s12 m6">
+                        <p className="pollitic-label">
+                            სტატუსი
+                            <span className="important">*</span>
+                        </p>
+                        <select
+                            className="browser-default pollitic-select"
+                            value={this.state.userInput.isListed}
+                            onChange={this.handleChange}
+                            name="isListed"
+                        >
+                            <option value="True">საჯარო</option>
+                            <option value="False">დამალული</option>
+                        </select>
+                    </div>
+                    <div className="input-field col s12 m6">
+                        <p className="pollitic-label">
+                            SMS ვერიფიკაცია
+                            <span className="important">*</span>
+                        </p>
+                        <select
+                            className="browser-default pollitic-select"
+                            value={this.state.userInput.requirePhoneAuth}
+                            onChange={this.handleChange}
+                            name="requirePhoneAuth"
+                        >
+                            <option value="False">არასავალდებულო</option>
+                            <option value="True">სავალდებულო</option>
+                        </select>
+                    </div>
+                    <div className="input-field col s12 m6">
+                        <p className="pollitic-label">
+                            ხანგრძლივობა
+                            <span className="important">*</span>
+                        </p>
+                        <select
+                            className="browser-default pollitic-select"
+                            value={this.state.userInput.closingDate}
+                            onChange={this.handleChange}
+                            name="closingDate"
+                        >
+                            <option value="0.5">12 საათი</option>
+                            <option value="1">1 დღე</option>
+                            <option value="2">2 დღე</option>
+                            <option value="3">3 დღე</option>
+                            <option value="4">4 დღე</option>
+                            <option value="7">1 კვირა</option>
+                            <option value="14">2 კვირა</option>
+                        </select>
+                    </div>
+                    <div className="input-field col s12 m6">
+                        <p className="pollitic-label">პაროლი</p>
+                        <input
+                            onChange={this.handleChange}
+                            value={this.state.userInput.password}
+                            name="password"
+                            type="text"
+                            className="validate"
+                            maxLength="12"
+                        />
+                    </div>
+                    <div className="input-field file-field col s12 m6">
+                        <div className="btn-small light-green darken-2">
+                            <span>სურათი</span>
+                            <input
+                                type="file"
+                                onChange={this.handleFileUpload}
+                                name="image"
+                            />
                         </div>
-						<div className="input-field col s12">
-							<p className="pollitic-label">აღწერა<span className="important">*</span></p>
-							<input 
-								onChange={this.handleChange} 
-								value={this.state.userInput.description}
-								ref={(input) => this.refsCollection.description = input} 
-								placeholder="დამატებითი ინფორმაცია" 
-								name="description" 
-								type="text" 
-								className="validate"
-								maxLength="250"
-							/>
+                        <div className="file-path-wrapper">
+                            <input
+                                className="file-path validate"
+                                type="text"
+                                placeholder="სურათის ატვირთვა"
+                            />
                         </div>
-						<div className="input-field col s12 m6">
-							<p className="pollitic-label">სტატუსი<span className="important">*</span></p>
-							<select 
-								className="browser-default pollitic-select" 
-								value={this.state.userInput.isListed} 
-								onChange={this.handleChange}  
-								name="isListed"
-							>
-								<option value="True">საჯარო</option>
-								<option value="False">დამალული</option>
-							</select>
-                        </div>
-						<div className="input-field col s12 m6">
-							<p className="pollitic-label">SMS ვერიფიკაცია<span className="important">*</span></p>
-							<select 
-								className="browser-default pollitic-select" 
-								value={this.state.userInput.requirePhoneAuth} 
-								onChange={this.handleChange}
-								name="requirePhoneAuth"
-							>
-								<option value="False">არასავალდებულო</option>
-								<option value="True">სავალდებულო</option>								
-							</select>
-                        </div>
-						<div className="input-field col s12 m6">
-							<p className="pollitic-label">ხანგრძლივობა<span className="important">*</span></p>
-							<select 
-								className="browser-default pollitic-select" 
-								value={this.state.userInput.closingDate} 
-								onChange={this.handleChange}
-								name="closingDate"
-							>
-								<option value="0.5">12 საათი</option>
-								<option value="1">1 დღე</option>
-								<option value="2">2 დღე</option>
-								<option value="3">3 დღე</option>
-								<option value="4">4 დღე</option>
-								<option value="7">1 კვირა</option>
-								<option value="14">2 კვირა</option>								
-							</select>
-                        </div>
-						<div className="input-field col s12 m6">
-							<p className="pollitic-label">პაროლი</p>
-							<input 
-								onChange={this.handleChange} 
-								value={this.state.userInput.password} 
-								name="password" 
-								type="text" 
-								className="validate"
-								maxLength="12"
-							/>
-                        </div>
-						<div className="input-field file-field col s12 m6">
-							<div className="btn-small light-green darken-2">
-								<span>სურათი</span>
-								<input 
-									type="file" 
-									onChange={this.handleFileUpload}
-									name="image" 
-								/>
-							</div>							
-							<div className="file-path-wrapper">
-								<input className="file-path validate" type="text" placeholder="სურათის ატვირთვა"/>
-							</div>
-                        </div>
-						<div className="input-field col s12">
-							<p className="pollitic-label">პასუხები<span className="important">*</span></p>
-							<AddCandidate addCandidate={this.addCandidate} />							
-                        </div>
-						<div className="col s12">
-							<ArrayToList removeItem={this.removeCandidate} items={this.state.userInput.candidates}/>
-						</div>
-						<div className="input-field col s12">
-							<p className="pollitic-label">დამატებითი კითხვები</p>
-							<AddQuestion addQuestion={this.addQuestion}	/>							
-                        </div>
-						<div className="col s12">
-							<ArrayToList removeItem={this.removeQuestion} items={this.state.userInput.questions}/>
-						</div>
-						<div className="col s12">
-							<button 
-								onClick={this.handleSubmit}
-								className='btn-large purple darken-1 z-depth-3 main-btn'
-							>
-							დამატება
-							</button>	
-						</div>						
-					</div>
-			);
-		} else if (this.state.status === 'success') {
-			return <Redirect to={`/poll/${this.state.newPollId}`}/>;
-		}
+                    </div>
+                    <div className="input-field col s12">
+                        <p className="pollitic-label">
+                            პასუხები
+                            <span className="important">*</span>
+                        </p>
+                        <AddFormItem
+                            addItem={this.addItem}
+                            itemName="candidates"
+                            inputLength="30"
+                            placeHolderInput="მთავარი კითხვის პასუხი"
+                        />
+                    </div>
+                    <div className="col s12">
+                        <ArrayToList
+                            removeItem={this.removeItem}
+                            items={this.state.userInput.candidates}
+                            itemKey="candidates"
+                        />
+                    </div>
+                    <div className="input-field col s12">
+                        <p className="pollitic-label">დამატებითი კითხვები</p>
+                        <AddFormItem
+                            addItem={this.addItem}
+                            itemName="questions"
+                            inputLength="120"
+                        />
+                    </div>
+                    <div className="col s12">
+                        <ArrayToList
+                            removeItem={this.removeItem}
+                            items={this.state.userInput.questions}
+                            itemKey="questions"
+                        />
+                    </div>
+                    <div className="col s12">
+                        <button
+                            onClick={this.handleSubmit}
+                            className="btn-large purple darken-1 z-depth-3 main-btn"
+                        >
+                            დამატება
+                        </button>
+                    </div>
+                </div>
+            );
+        } else if (this.state.status === 'success') {
+            return <Redirect to={`/poll/${this.state.newPollId}`} />;
+        }
 
-		return <PreLoader />;
-	}
+        return <PreLoader />;
+    }
 }
 
 export default PaddedContainerHOC(AddNewPoll);

@@ -3,7 +3,7 @@ import BasicCointainerHOC from '../hoc/BasicContainerHOC';
 import notFoundIllustration from '../assets/img/not_found.png';
 
 const NotFound = () => {
-    return(
+    return (
         <React.Fragment>
             <div className="row pollitic-404">
                 <div className="col s12 m6">
@@ -12,11 +12,11 @@ const NotFound = () => {
                     <p>კოდი: 404</p>
                 </div>
                 <div className="col s12 m6">
-                    <img src={notFoundIllustration} alt="404"/>
+                    <img src={notFoundIllustration} alt="404" />
                 </div>
             </div>
         </React.Fragment>
     );
-}
+};
 
 export default BasicCointainerHOC(NotFound);

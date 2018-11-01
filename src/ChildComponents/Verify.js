@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 
 class Verify extends Component {
-	state = {
+    state = {};
 
-	}
-
-	render() {
-		return (
-			<React.Fragment>
-				
-			</React.Fragment>
-		);
-	}
+    render() {
+        return <React.Fragment />;
+    }
 }
 
 export default Verify;

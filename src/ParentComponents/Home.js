@@ -4,14 +4,14 @@ import AboutUs from '../ChildComponents/AboutUs';
 import PollsMin from '../ChildComponents/PollsMin';
 
 const Home = () => {
-	return (
-		<React.Fragment>
-			<CallToAction />
-			<AboutUs />
-			<PollsMin sort='hot' />
-			<PollsMin sort='new' />
-		</React.Fragment>
-	);
-}
+    return (
+        <React.Fragment>
+            <CallToAction />
+            <AboutUs />
+            <PollsMin sort="hot" />
+            <PollsMin sort="new" />
+        </React.Fragment>
+    );
+};
 
 export default Home;
