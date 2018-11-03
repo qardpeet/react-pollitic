@@ -1,10 +1,8 @@
 \--------------------------------TODOS-----------------------------------/
 ***Implement Pagination (Hot/New/Closed) components
-***Code the Poll component
-***Code the NewPoll component 
+***Code the Poll component 
 ------------------------------------------------------------------------
 ** Display appropriate text if no polls exist
-** Add questions and answers by hitting enter
 ------------------------------------------------------------------------
 
 
@@ -21,3 +19,5 @@
 ***Add Routing functionality
 ***Code the Home component
 ***Integrate API in finished components
+** Add questions and answers by hitting enter
+***Code the NewPoll component

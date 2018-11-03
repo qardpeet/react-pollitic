@@ -4,8 +4,9 @@ import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
 import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
 import { Redirect } from 'react-router-dom';
-// import MainChart from '../ChildComponents/FunctionalComponents/MainChart';
-// import VotePoll from '../ChildComponents/VotePoll';
+import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
+import HorizontalBarChart from '../ChildComponents/FunctionalComponents/HorizontalBarChart';
+import AddVote from '../ChildComponents/AddVote';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
 
 class Poll extends Component {
@@ -66,14 +67,18 @@ class Poll extends Component {
         if (this.state.status === 'OK') {
             return (
                 <React.Fragment>
-                    <div className="container">
-                        <div className="row">
-                            <PollDisplay
-                                size="large"
-                                polls={[this.state.apiData.data.poll]}
-                            />
-                        </div>
-                    </div>
+                    <PollDisplay
+                        size="large"
+                        polls={[this.state.apiData.data.poll]}
+                    />
+                    <AddVote
+                        candidates={this.state.apiData.data.poll.candidates}
+                        pollId={this.state.apiData.data.poll.id}
+                        setModal={this.props.setModal}
+                    />
+                    <HorizontalBarChart
+                        data={this.state.apiData.data.poll.candidates}
+                    />
                 </React.Fragment>
             );
         } else if (this.state.status === 'Not Found') {
@@ -83,4 +88,4 @@ class Poll extends Component {
     }
 }
 
-export default Poll;
+export default PaddedContainerHOC(Poll);

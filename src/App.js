@@ -66,7 +66,9 @@ class App extends Component {
                             />
                             <Route
                                 path="/poll/:poll_id"
-                                render={props => <Poll {...props} />}
+                                render={props => (
+                                    <Poll {...props} setModal={this.setModal} />
+                                )}
                             />
                             <Route
                                 path="/polls"
