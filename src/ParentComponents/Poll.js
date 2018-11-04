@@ -82,6 +82,7 @@ class Poll extends Component {
                         requirePhoneAuth={
                             this.state.apiData.data.poll.requirePhoneAuth
                         }
+                        getPollApiData={this.getApiData}
                     />
                     <hr />
                     <HorizontalBarChart

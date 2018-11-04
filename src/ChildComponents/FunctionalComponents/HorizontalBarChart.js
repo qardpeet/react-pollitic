@@ -16,7 +16,7 @@ const HorizontalBarChart = ({ data }) => {
             {
                 label: 'ხმების რაოდენობა',
                 data: voteNumberList,
-                backgroundColor: ['rgba(143, 0, 185, 0.5)'],
+                backgroundColor: 'rgba(143, 0, 185, 0.5)',
             },
         ],
     };
@@ -26,6 +26,7 @@ const HorizontalBarChart = ({ data }) => {
             <div>
                 <Bar
                     data={dataMount}
+                    height={500}
                     options={{
                         maintainAspectRatio: false,
                         legend: {

@@ -48,80 +48,79 @@ class AddVote extends Component {
             formData.append(key, this.state.userInput[key]);
         }
 
-        // this.postApiData(formData);
+        this.postApiData(formData);
     };
 
-    // postApiData = data => {
-    //     this.setState({
-    //         status: 'pending',
-    //     });
+    postApiData = data => {
+        this.setState({
+            status: 'pending',
+        });
 
-    //     const wrappedPromise = cancelablePromise(
-    //         axios.post(
-    //             `http://pollitic.herokuapp.com/api/poll/${
-    //                 this.props.pollId
-    //             }/vote/`,
-    //             data,
-    //             {
-    //                 headers: {
-    //                     'content-type': 'application/x-www-form-urlencoded',
-    //                 },
-    //             }
-    //         )
-    //     );
+        const wrappedPromise = cancelablePromise(
+            axios.post(
+                `http://pollitic.herokuapp.com/api/poll/${
+                    this.props.pollId
+                }/vote`,
+                data
+            )
+        );
 
-    //     this.appendPendingPromise(wrappedPromise);
+        this.appendPendingPromise(wrappedPromise);
 
-    //     return wrappedPromise.promise
-    //         .then(response => {
-    //             this.displayMessage(response);
-    //         })
-    //         .then(() => this.removePendingPromise(wrappedPromise))
-    //         .catch(error => {
-    //             if (!error.isCanceled) {
-    //                 this.displayMessage(error.response);
-    //                 this.removePendingPromise(wrappedPromise);
-    //             }
-    //         });
-    // };
+        return wrappedPromise.promise
+            .then(response => {
+                this.displayMessage(response);
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(error => {
+                if (!error.isCanceled) {
+                    this.displayMessage(error.response);
+                    this.removePendingPromise(wrappedPromise);
+                }
+            });
+    };
 
-    // displayMessage = response => {
-    //     if (response.statusText === 'OK') {
-    //         if (response.data.status === 'success') {
-    //             this.setState({
-    //                 status: 'success',
-    //                 // verification link
-    //             });
-    //             this.props.setModal(
-    //                 true,
-    //                 true,
-    //                 'გილოცავთ',
-    //                 response.data.message
-    //             );
-    //         } else if (response.data.status === 'error') {
-    //             this.setState({
-    //                 status: 'waitingForUser',
-    //             });
-    //             this.props.setModal(
-    //                 true,
-    //                 false,
-    //                 'შეცდომა',
-    //                 response.data.error
-    //             );
-    //         }
-    //     } else {
-    //         this.setState({
-    //             status: 'waitingForUser',
-    //         });
-    //         this.props.setModal(
-    //             true,
-    //             false,
-    //             'შეცდომა',
-    //             'გთხოვთ კიდევ სცადოთ პოლის დამატება ან მოგვწერეთ ჩვენს ფეისბუქ გვერდზე. მადლობა!'
-    //         );
-    //         console.log(response);
-    //     }
-    // };
+    displayMessage = response => {
+        if (response.statusText === 'OK') {
+            if (response.data.status === 'success') {
+                if (this.props.requirePhoneAuth === 'False') {
+                    this.setState({
+                        status: 'waitingForUser',
+                    });
+                    this.props.setModal(
+                        true,
+                        true,
+                        'გილოცავთ',
+                        response.data.data.message
+                    );
+                    this.props.getPollApiData(this.props.pollId);
+                } else {
+                    // if phone authentication is required do smth
+                }
+            } else if (response.data.status === 'error') {
+                this.setState({
+                    status: 'waitingForUser',
+                });
+                this.props.setModal(
+                    true,
+                    false,
+                    'შეცდომა',
+                    response.data.error
+                );
+            }
+        } else {
+            this.setState({
+                status: 'waitingForUser',
+            });
+            this.props.setModal(
+                true,
+                false,
+                'შეცდომა',
+                'გთხოვთ კიდევ სცადოთ ხმის მიცემა ან მოგვწერეთ ჩვენს ფეისბუქ გვერდზე. მადლობა!'
+            );
+            console.log(response);
+        }
+    };
 
     render() {
         if (this.state.status === 'waitingForUser') {
