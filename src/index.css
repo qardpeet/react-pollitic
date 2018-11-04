@@ -36,7 +36,9 @@ body {
 }
 
 hr {
-    border: 1px solid #ebebeb;
+    border: 0.5px solid #efefef;
+    width: 95%;
+    margin: 30px auto;
 }
 
 input {
@@ -288,6 +290,13 @@ nav .brand-logo {
 
 .pollitic-radio-btn {
     display: inline-block;
+}
+
+.pollitic-description {
+    margin-top: 0;
+    text-align: center;
+    font-size: 14px;
+    font-family: BPGitalic;
 }
 
 [type='radio']:not(:checked) + span:before,

@@ -71,11 +71,19 @@ class Poll extends Component {
                         size="large"
                         polls={[this.state.apiData.data.poll]}
                     />
+                    <p className="pollitic-description">
+                        {this.state.apiData.data.poll.description}
+                    </p>
+                    <hr />
                     <AddVote
                         candidates={this.state.apiData.data.poll.candidates}
                         pollId={this.state.apiData.data.poll.id}
                         setModal={this.props.setModal}
+                        requirePhoneAuth={
+                            this.state.apiData.data.poll.requirePhoneAuth
+                        }
                     />
+                    <hr />
                     <HorizontalBarChart
                         data={this.state.apiData.data.poll.candidates}
                     />

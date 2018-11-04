@@ -51,7 +51,15 @@ const PollDisplay = ({ polls, size }) => {
         );
     });
 
-    return <React.Fragment>{pollList}</React.Fragment>;
+    return (
+        <React.Fragment>
+            {pollList.length !== 0 ? (
+                pollList
+            ) : (
+                <p className="center">გამოკითხვების სია ცარიელია</p>
+            )}
+        </React.Fragment>
+    );
 };
 
 export default PollDisplay;

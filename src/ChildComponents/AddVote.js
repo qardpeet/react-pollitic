@@ -139,25 +139,27 @@ class AddVote extends Component {
                                 candidates={this.props.candidates}
                             />
                         </div>
-                        <div className="input-field col s12 m6">
-                            <p className="pollitic-label">
-                                ტელეფონის ნომერი
-                                <span className="important">*</span>
-                            </p>
-                            <input
-                                onChange={this.handleChange}
-                                value={this.state.userInput.number}
-                                maxLength="20"
-                                placeholder="მითითებულ ნომერზე მოგივათ ვერიფიკაციის კოდი"
-                                name="number"
-                                type="text"
-                                className="validate"
-                            />
-                        </div>
+                        {this.props.requirePhoneAuth === 'True' ? (
+                            <div className="input-field col s12 m6">
+                                <p className="pollitic-label">
+                                    ტელეფონის ნომერი
+                                    <span className="important">*</span>
+                                </p>
+                                <input
+                                    onChange={this.handleChange}
+                                    value={this.state.userInput.number}
+                                    maxLength="20"
+                                    placeholder="მითითებულ ნომერზე მოგივათ ვერიფიკაციის კოდი"
+                                    name="number"
+                                    type="text"
+                                    className="validate"
+                                />
+                            </div>
+                        ) : null}
                         <div className="input-field col s12">
                             <button
                                 onClick={this.submitVote}
-                                className="btn-large purple darken-1 z-depth-3 main-btn"
+                                className="btn-large purple darken-1 main-btn"
                             >
                                 ხმის დაფიქსირება
                             </button>

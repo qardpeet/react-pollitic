@@ -2,7 +2,7 @@
 ***Implement Pagination (Hot/New/Closed) components
 ***Code the Poll component 
 ------------------------------------------------------------------------
-** Display appropriate text if no polls exist
+
 ------------------------------------------------------------------------
 
 
@@ -21,3 +21,4 @@
 ***Integrate API in finished components
 ** Add questions and answers by hitting enter
 ***Code the NewPoll component
+** Display appropriate text if no polls exist
