@@ -2,12 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PollDisplay = ({ polls, size }) => {
-    const gridClassNames =
-        size === 'large' ? 'col s12 m12 l12 xl12' : 'col s12 m6 l6 xl3';
+    const gridClassNames = size === 'large' ? 'col s12 m12 l12 xl12' : 'col s12 m6 l6 xl3';
     const fontClassNames =
-        size === 'large'
-            ? 'pollitic-min-item-overlay full'
-            : 'pollitic-min-item-overlay';
+        size === 'large' ? 'pollitic-min-item-overlay full' : 'pollitic-min-item-overlay';
 
     const getTimeLeft = closingDate => {
         const closingDateUnix = Date.parse(closingDate + ' UTC');
@@ -20,24 +17,16 @@ const PollDisplay = ({ polls, size }) => {
         const timeLeftMinutes = Math.round(timeLeft / (60 * 1000));
 
         if (timeLeftUnix < 0) return 'ხმის მიცემა დასრულებულია';
-        if (timeLeftDays > 0)
-            return 'დარჩენილია ' + timeLeftDays.toString() + ' დღე';
-        if (timeLeftHours > 0)
-            return 'დარჩენილია ' + timeLeftHours.toString() + ' საათი';
+        if (timeLeftDays > 0) return 'დარჩენილია ' + timeLeftDays.toString() + ' დღე';
+        if (timeLeftHours > 0) return 'დარჩენილია ' + timeLeftHours.toString() + ' საათი';
         return 'დარჩენილია ' + timeLeftMinutes.toString() + ' წუთი';
     };
 
     const pollList = polls.map(poll => {
-        const imageLink = poll.imageLink
-            ? { backgroundImage: `url(${poll.imageLink})` }
-            : null;
+        const imageLink = poll.imageLink ? { backgroundImage: `url(${poll.imageLink})` } : null;
 
         return (
-            <div
-                className={gridClassNames}
-                key={poll.id}
-                style={{ padding: '1.5rem' }}
-            >
+            <div className={gridClassNames} key={poll.id} style={{ padding: '1.5rem' }}>
                 <div className="pollitic-min-item hoverable" style={imageLink}>
                     <Link to={'/poll/' + poll.id} className={fontClassNames}>
                         <div>

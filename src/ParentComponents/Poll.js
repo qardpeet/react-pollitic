@@ -67,10 +67,7 @@ class Poll extends Component {
         if (this.state.status === 'OK') {
             return (
                 <React.Fragment>
-                    <PollDisplay
-                        size="large"
-                        polls={[this.state.apiData.data.poll]}
-                    />
+                    <PollDisplay size="large" polls={[this.state.apiData.data.poll]} />
                     <p className="pollitic-description">
                         {this.state.apiData.data.poll.description}
                     </p>
@@ -79,15 +76,11 @@ class Poll extends Component {
                         candidates={this.state.apiData.data.poll.candidates}
                         pollId={this.state.apiData.data.poll.id}
                         setModal={this.props.setModal}
-                        requirePhoneAuth={
-                            this.state.apiData.data.poll.requirePhoneAuth
-                        }
+                        requirePhoneAuth={this.state.apiData.data.poll.requirePhoneAuth}
                         getPollApiData={this.getApiData}
                     />
                     <hr />
-                    <HorizontalBarChart
-                        data={this.state.apiData.data.poll.candidates}
-                    />
+                    <HorizontalBarChart data={this.state.apiData.data.poll.candidates} />
                 </React.Fragment>
             );
         } else if (this.state.status === 'Not Found') {

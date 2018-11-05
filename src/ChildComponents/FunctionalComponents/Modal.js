@@ -14,13 +14,7 @@ const Modal = ({ isActive, message, title, status, disableModal }) => {
                 }}
             >
                 <div className="modal-content">
-                    <h2
-                        className={
-                            status
-                                ? 'pollitic-modal-success'
-                                : 'pollitic-modal-warn'
-                        }
-                    >
+                    <h2 className={status ? 'pollitic-modal-success' : 'pollitic-modal-warn'}>
                         {title}
                     </h2>
                     <p>{message}</p>

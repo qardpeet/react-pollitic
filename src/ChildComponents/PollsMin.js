@@ -82,10 +82,7 @@ class PollsMin extends Component {
                 <React.Fragment>
                     <h3>{this.state.headers[this.props.sort]}</h3>
                     <div className="row">
-                        <PollDisplay
-                            polls={this.state.apiData.data.polls}
-                            size="small"
-                        />
+                        <PollDisplay polls={this.state.apiData.data.polls} size="small" />
                     </div>
                 </React.Fragment>
             );

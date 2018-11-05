@@ -40,10 +40,7 @@ class AddFormItem extends Component {
                         />
                     </div>
                     <div className="col s12">
-                        <div
-                            className="btn light-green darken-2"
-                            onClick={this.addItem}
-                        >
+                        <div className="btn light-green darken-2" onClick={this.addItem}>
                             +
                         </div>
                     </div>
