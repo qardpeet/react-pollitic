@@ -48,6 +48,10 @@ class AddVote extends Component {
         }
     };
 
+    expiredCallback = () => {
+        this.props.setModal(true, false, 'შეცდომა', 'გთხოვთ თავიდან მონიშნოთ Recaptcha');
+    };
+
     handleChange = e => {
         this.setState({
             userInput: {
@@ -164,6 +168,10 @@ class AddVote extends Component {
                                 ref={e => (this.recaptchaInstance = e)}
                                 onloadCallback={this.recaptchaLoaded}
                                 verifyCallback={this.verifyCallback}
+                                expiredCallback={this.expiredCallback}
+                                size="compact"
+                                className="pollitic-recaptcha"
+                                hl="ka"
                             />
                         </div>
                         <div className="input-field col s12">

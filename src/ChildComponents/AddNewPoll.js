@@ -60,6 +60,10 @@ class AddNewPoll extends Component {
         }
     };
 
+    expiredCallback = () => {
+        this.props.setModal(true, false, 'შეცდომა', 'გთხოვთ თავიდან მონიშნოთ Recaptcha');
+    };
+
     handleSubmit = () => {
         window.scrollTo(0, 0);
         let formData = new FormData();
@@ -350,6 +354,10 @@ class AddNewPoll extends Component {
                             ref={e => (this.recaptchaInstance = e)}
                             onloadCallback={this.recaptchaLoaded}
                             verifyCallback={this.verifyCallback}
+                            expiredCallback={this.expiredCallback}
+                            size="compact"
+                            className="pollitic-recaptcha"
+                            hl="ka"
                         />
                     </div>
                     <div className="col s12">
