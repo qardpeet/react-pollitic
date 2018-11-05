@@ -5,6 +5,7 @@ import ArrayToList from './FunctionalComponents/ArrayToList';
 import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from './FunctionalComponents/PreLoader';
 import { Redirect } from 'react-router-dom';
+import Recaptcha from 'react-recaptcha';
 import axios from 'axios';
 
 class AddNewPoll extends Component {
@@ -19,6 +20,7 @@ class AddNewPoll extends Component {
             questions: [],
             closingDate: '1',
             image: null,
+            recaptcha: '',
         },
         status: 'waitingForUser',
     };
@@ -41,6 +43,44 @@ class AddNewPoll extends Component {
 
     removePendingPromise = promise => {
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+    };
+
+    recaptchaLoaded = () => {
+        console.log('Google ReCaptcha Loaded!');
+    };
+
+    verifyCallback = response => {
+        if (response) {
+            this.setState({
+                userInput: {
+                    ...this.state.userInput,
+                    recaptcha: response,
+                },
+            });
+        }
+    };
+
+    handleSubmit = () => {
+        window.scrollTo(0, 0);
+        let formData = new FormData();
+        const closingDate = this.getClosingDate(parseInt(this.state.userInput.closingDate));
+
+        for (let key in this.state.userInput) {
+            if (Array.isArray(this.state.userInput[key])) {
+                for (let i in this.state.userInput[key]) {
+                    formData.append(`${key}[]`, this.state.userInput[key][i]);
+                }
+            } else {
+                if (key === 'closingDate') {
+                    formData.append(key, closingDate);
+                } else {
+                    formData.append(key, this.state.userInput[key]);
+                }
+            }
+        }
+
+        this.postApiData(formData);
+        this.recaptchaInstance.reset();
     };
 
     postApiData = data => {
@@ -78,22 +118,12 @@ class AddNewPoll extends Component {
                     status: 'success',
                     newPollId: response.data.data.poll.id,
                 });
-                this.props.setModal(
-                    true,
-                    true,
-                    'გილოცავთ',
-                    response.data.message
-                );
+                this.props.setModal(true, true, 'გილოცავთ', response.data.message);
             } else if (response.data.status === 'error') {
                 this.setState({
                     status: 'waitingForUser',
                 });
-                this.props.setModal(
-                    true,
-                    false,
-                    'შეცდომა',
-                    response.data.error
-                );
+                this.props.setModal(true, false, 'შეცდომა', response.data.error);
             }
         } else {
             this.setState({
@@ -107,30 +137,6 @@ class AddNewPoll extends Component {
             );
             console.log(response);
         }
-    };
-
-    handleSubmit = () => {
-        window.scrollTo(0, 0);
-        let formData = new FormData();
-        const closingDate = this.getClosingDate(
-            parseInt(this.state.userInput.closingDate)
-        );
-
-        for (let key in this.state.userInput) {
-            if (Array.isArray(this.state.userInput[key])) {
-                for (let i in this.state.userInput[key]) {
-                    formData.append(`${key}[]`, this.state.userInput[key][i]);
-                }
-            } else {
-                if (key === 'closingDate') {
-                    formData.append(key, closingDate);
-                } else {
-                    formData.append(key, this.state.userInput[key]);
-                }
-            }
-        }
-
-        this.postApiData(formData);
     };
 
     handleKeyUp = (e, nextInput) => {
@@ -180,9 +186,7 @@ class AddNewPoll extends Component {
     getClosingDate = days => {
         const currentTimeUnixMS = Date.now();
         const currentTimeUnix = currentTimeUnixMS / 1000;
-        const roundedClosingDateUnix = Math.round(
-            currentTimeUnix + days * 86400
-        );
+        const roundedClosingDateUnix = Math.round(currentTimeUnix + days * 86400);
         return roundedClosingDateUnix.toString();
     };
 
@@ -224,9 +228,7 @@ class AddNewPoll extends Component {
                         <input
                             onChange={this.handleChange}
                             value={this.state.userInput.description}
-                            ref={input =>
-                                (this.refsCollection.description = input)
-                            }
+                            ref={input => (this.refsCollection.description = input)}
                             placeholder="დამატებითი ინფორმაცია"
                             name="description"
                             type="text"
@@ -298,11 +300,7 @@ class AddNewPoll extends Component {
                     <div className="input-field file-field col s12 m6">
                         <div className="btn-small light-green darken-2">
                             <span>სურათი</span>
-                            <input
-                                type="file"
-                                onChange={this.handleFileUpload}
-                                name="image"
-                            />
+                            <input type="file" onChange={this.handleFileUpload} name="image" />
                         </div>
                         <div className="file-path-wrapper">
                             <input
@@ -344,6 +342,14 @@ class AddNewPoll extends Component {
                             removeItem={this.removeItem}
                             items={this.state.userInput.questions}
                             itemKey="questions"
+                        />
+                    </div>
+                    <div className="col s12">
+                        <Recaptcha
+                            sitekey="6Le4JnYUAAAAAJsF-r7jLHNI9zaMh4Wnuvb565Os"
+                            ref={e => (this.recaptchaInstance = e)}
+                            onloadCallback={this.recaptchaLoaded}
+                            verifyCallback={this.verifyCallback}
                         />
                     </div>
                     <div className="col s12">

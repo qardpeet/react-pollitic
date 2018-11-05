@@ -3,6 +3,7 @@ import cancelablePromise from '../helpers/cancelablePromise';
 import CandidateRadioButtons from './FunctionalComponents/CandidateRadioButtons';
 import PreLoader from './FunctionalComponents/PreLoader';
 import Verify from './Verify';
+import Recaptcha from 'react-recaptcha';
 import axios from 'axios';
 
 class AddVote extends Component {
@@ -12,6 +13,7 @@ class AddVote extends Component {
             number: '',
             gender: '',
             age: '',
+            recaptcha: '',
         },
         status: 'waitingForUser',
         verificationLink: '',
@@ -29,6 +31,21 @@ class AddVote extends Component {
 
     removePendingPromise = promise => {
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+    };
+
+    recaptchaLoaded = () => {
+        console.log('Google ReCaptcha Loaded!');
+    };
+
+    verifyCallback = response => {
+        if (response) {
+            this.setState({
+                userInput: {
+                    ...this.state.userInput,
+                    recaptcha: response,
+                },
+            });
+        }
     };
 
     handleChange = e => {
@@ -49,6 +66,7 @@ class AddVote extends Component {
         }
 
         this.postApiData(formData);
+        this.recaptchaInstance.reset();
     };
 
     postApiData = data => {
@@ -57,12 +75,7 @@ class AddVote extends Component {
         });
 
         const wrappedPromise = cancelablePromise(
-            axios.post(
-                `http://pollitic.herokuapp.com/api/poll/${
-                    this.props.pollId
-                }/vote`,
-                data
-            )
+            axios.post(`http://pollitic.herokuapp.com/api/poll/${this.props.pollId}/vote`, data)
         );
 
         this.appendPendingPromise(wrappedPromise);
@@ -87,12 +100,7 @@ class AddVote extends Component {
                     this.setState({
                         status: 'waitingForUser',
                     });
-                    this.props.setModal(
-                        true,
-                        true,
-                        'გილოცავთ',
-                        response.data.data.message
-                    );
+                    this.props.setModal(true, true, 'გილოცავთ', response.data.data.message);
                     this.props.getPollApiData(this.props.pollId);
                 } else {
                     // if phone authentication is required do smth
@@ -101,12 +109,7 @@ class AddVote extends Component {
                 this.setState({
                     status: 'waitingForUser',
                 });
-                this.props.setModal(
-                    true,
-                    false,
-                    'შეცდომა',
-                    response.data.error
-                );
+                this.props.setModal(true, false, 'შეცდომა', response.data.error);
             }
         } else {
             this.setState({
@@ -155,6 +158,14 @@ class AddVote extends Component {
                                 />
                             </div>
                         ) : null}
+                        <div className="col s12">
+                            <Recaptcha
+                                sitekey="6Le4JnYUAAAAAJsF-r7jLHNI9zaMh4Wnuvb565Os"
+                                ref={e => (this.recaptchaInstance = e)}
+                                onloadCallback={this.recaptchaLoaded}
+                                verifyCallback={this.verifyCallback}
+                            />
+                        </div>
                         <div className="input-field col s12">
                             <button
                                 onClick={this.submitVote}

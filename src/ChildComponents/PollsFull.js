@@ -21,9 +21,7 @@ class PollsFull extends Component {
     pendingPromises = [];
 
     componentWillMount() {
-        window.addEventListener('scroll', e => {
-            this.handleScroll(e);
-        });
+        window.addEventListener('scroll', this.handleScroll);
     }
 
     componentDidMount() {
@@ -32,7 +30,12 @@ class PollsFull extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.sort !== prevProps.sort || this.props.context !== prevProps.context) {
-            this.getApiData(this.props.sort, this.props.context, true);
+            this.setState(
+                {
+                    page: 1,
+                },
+                () => this.getApiData(this.props.sort, this.props.context, true)
+            );
         }
     }
 
@@ -107,7 +110,9 @@ class PollsFull extends Component {
         const { scrolling, totalPages, page } = this.state;
         if (scrolling) return;
         if (totalPages <= page) return;
-        const lastPoll = document.querySelector('.pollitic-item.padded-white > .row > .col:last-child');
+        const lastPoll = document.querySelector(
+            '.pollitic-item.padded-white > .row > .col:last-child'
+        );
         const lastPollOffset = lastPoll.offsetTop + lastPoll.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
         const bottomOffset = 20;
@@ -115,6 +120,7 @@ class PollsFull extends Component {
     };
 
     loadMorePolls = () => {
+        console.log('asdasdasd');
         this.setState(
             prevState => ({
                 page: ++prevState.page,

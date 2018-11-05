@@ -36,7 +36,7 @@ class Navbar extends Component {
                 <nav className="white" role="navigation">
                     <div className="nav-wrapper container">
                         <Link to="/" className="brand-logo">
-                            <img src={logo} alt="logo" />
+                            <img className="pollitic-logo" src={logo} alt="logo" />
                         </Link>
                         <ul className="right hide-on-med-and-down">
                             <NavButtons
@@ -51,20 +51,13 @@ class Navbar extends Component {
                                 buttons={this.state.buttons}
                             />
                         </ul>
-                        <a
-                            href="/"
-                            onClick={this.handleOpen}
-                            className="sidenav-trigger"
-                        >
+                        <a href="/" onClick={this.handleOpen} className="sidenav-trigger">
                             <i className="material-icons">menu</i>
                         </a>
                     </div>
                 </nav>
                 {this.state.sideNavActive ? (
-                    <div
-                        onClick={this.handleClose}
-                        className="pollitic-overlay"
-                    />
+                    <div onClick={this.handleClose} className="pollitic-overlay" />
                 ) : null}
             </React.Fragment>
         );

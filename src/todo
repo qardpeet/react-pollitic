@@ -1,5 +1,9 @@
 \--------------------------------TODOS-----------------------------------/
-***Code the Poll component 
+***Code the Poll component
+***Do not show AddVote if voting is finished
+***Add PhoneVerification
+***Add Graphs
+***Display appropriate visual on signature polls
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -22,3 +26,4 @@
 ***Code the NewPoll component
 ** Display appropriate text if no polls exist
 ***Implement Pagination (Hot/New/Closed) components
+***Add Recaptcha

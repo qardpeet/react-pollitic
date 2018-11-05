@@ -50,34 +50,17 @@ class App extends Component {
                     <div className="pollitic-content">
                         <Navbar />
                         <Switch>
-                            <Route
-                                exact
-                                path="/"
-                                render={props => <Home {...props} />}
-                            />
+                            <Route exact path="/" render={props => <Home {...props} />} />
                             <Route
                                 path="/new-poll"
-                                render={props => (
-                                    <NewPoll
-                                        {...props}
-                                        setModal={this.setModal}
-                                    />
-                                )}
+                                render={props => <NewPoll {...props} setModal={this.setModal} />}
                             />
                             <Route
                                 path="/poll/:poll_id"
-                                render={props => (
-                                    <Poll {...props} setModal={this.setModal} />
-                                )}
+                                render={props => <Poll {...props} setModal={this.setModal} />}
                             />
-                            <Route
-                                path="/polls"
-                                render={props => <Polls {...props} />}
-                            />
-                            <Route
-                                path="/404"
-                                render={props => <NotFound {...props} />}
-                            />
+                            <Route path="/polls" render={props => <Polls {...props} />} />
+                            <Route path="/404" render={props => <NotFound {...props} />} />
                             <Route render={props => <NotFound {...props} />} />
                         </Switch>
                         <div className="push" />
