@@ -1,5 +1,4 @@
 \--------------------------------TODOS-----------------------------------/
-***Implement Pagination (Hot/New/Closed) components
 ***Code the Poll component 
 ------------------------------------------------------------------------
 
@@ -22,3 +21,4 @@
 ** Add questions and answers by hitting enter
 ***Code the NewPoll component
 ** Display appropriate text if no polls exist
+***Implement Pagination (Hot/New/Closed) components
