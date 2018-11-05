@@ -120,7 +120,6 @@ class PollsFull extends Component {
     };
 
     loadMorePolls = () => {
-        console.log('asdasdasd');
         this.setState(
             prevState => ({
                 page: ++prevState.page,
