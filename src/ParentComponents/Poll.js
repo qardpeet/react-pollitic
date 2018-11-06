@@ -5,7 +5,7 @@ import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
 import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
 import { Redirect } from 'react-router-dom';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
-import HorizontalBarChart from '../ChildComponents/FunctionalComponents/HorizontalBarChart';
+import BarChart from '../ChildComponents/FunctionalComponents/BarChart';
 import AddVote from '../ChildComponents/AddVote';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
 
@@ -80,7 +80,7 @@ class Poll extends Component {
                         getPollApiData={this.getApiData}
                     />
                     <hr />
-                    <HorizontalBarChart data={this.state.apiData.data.poll.candidates} />
+                    <BarChart data={this.state.apiData.data.poll.candidates} />
                 </React.Fragment>
             );
         } else if (this.state.status === 'Not Found') {

@@ -4,6 +4,8 @@
 ***Add PhoneVerification
 ***Add Graphs
 ***Display appropriate visual on signature polls
+***Questions
+***Do not display graphs if votecount is < 1
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
