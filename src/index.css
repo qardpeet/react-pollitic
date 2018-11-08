@@ -4,7 +4,7 @@
 }
 
 @font-face {
-    font-family: BPGweb;
+    font-family: 'BPGweb';
     src: url(./assets/fonts/bpg_web_001_caps.ttf);
 }
 
@@ -58,11 +58,6 @@ h3 {
     font-family: BPGweb;
     text-align: center;
     margin: 15px 0;
-}
-
-button {
-    font-size: 18px;
-    font-family: BPGweb, sans-serif;
 }
 
 nav .brand-logo {
@@ -205,8 +200,7 @@ nav .brand-logo {
 }
 
 .main-btn {
-    display: block;
-    margin-left: auto;
+    float: right;
 }
 
 .pollitic-pad {
@@ -304,6 +298,13 @@ nav .brand-logo {
 
 .pollitic-recaptcha {
     float: right;
+}
+
+.poll-btn {
+    font-family: BPGweb;
+    font-size: 16px;
+    text-align: center;
+    text-transform: lowercase;
 }
 
 [type='radio']:not(:checked) + span:before,

@@ -79,8 +79,12 @@ class Poll extends Component {
                         requirePhoneAuth={this.state.apiData.data.poll.requirePhoneAuth}
                         getPollApiData={this.getApiData}
                     />
-                    <hr />
-                    <BarChart data={this.state.apiData.data.poll.candidates} />
+                    {this.state.apiData.data.poll.totalcount > 1 ? (
+                        <>
+                            <hr />
+                            <BarChart data={this.state.apiData.data.poll.candidates} />
+                        </>
+                    ) : null}
                 </React.Fragment>
             );
         } else if (this.state.status === 'Not Found') {

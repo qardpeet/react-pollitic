@@ -127,7 +127,7 @@ class AddVote extends Component {
                     );
                     break;
                 default:
-                    return;
+                    throw new Error('You must provide a type, which is either verify or vote');
             }
             return;
         }
@@ -144,7 +144,7 @@ class AddVote extends Component {
                     });
                     break;
                 default:
-                    return;
+                    throw new Error('You must provide a type, which is either verify or vote');
             }
             this.props.setModal(true, false, 'შეცდომა', response.data.error);
             return;
@@ -179,7 +179,7 @@ class AddVote extends Component {
                     );
                     break;
                 default:
-                    return;
+                    throw new Error('You must provide a type, which is either verify or vote');
             }
             return;
         }
@@ -233,7 +233,7 @@ class AddVote extends Component {
                         <div className="input-field col s12">
                             <button
                                 onClick={this.submitVote}
-                                className="btn-large purple darken-1 main-btn"
+                                className="btn-large purple darken-1 main-btn poll-btn"
                             >
                                 ხმის დაფიქსირება
                             </button>

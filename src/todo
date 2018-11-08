@@ -1,11 +1,10 @@
 \--------------------------------TODOS-----------------------------------/
 ***Code the Poll component
 ***Do not show AddVote if voting is finished
-***Add PhoneVerification
 ***Add Graphs
 ***Display appropriate visual on signature polls
 ***Questions
-***Do not display graphs if votecount is < 1
+***Fix IOS device bugs
 ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -29,3 +28,6 @@
 ** Display appropriate text if no polls exist
 ***Implement Pagination (Hot/New/Closed) components
 ***Add Recaptcha
+***Add PhoneVerification
+***Fix button font bugging out on some browsers
+***Do not display graphs if votecount is < 1

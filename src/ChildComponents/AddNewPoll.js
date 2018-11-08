@@ -302,7 +302,7 @@ class AddNewPoll extends Component {
                         />
                     </div>
                     <div className="input-field file-field col s12 m6">
-                        <div className="btn-small light-green darken-2">
+                        <div className="btn-small light-green darken-2 poll-btn">
                             <span>სურათი</span>
                             <input type="file" onChange={this.handleFileUpload} name="image" />
                         </div>
@@ -363,7 +363,7 @@ class AddNewPoll extends Component {
                     <div className="col s12">
                         <button
                             onClick={this.handleSubmit}
-                            className="btn-large purple darken-1 z-depth-3 main-btn"
+                            className="btn-large purple darken-1 z-depth-3 main-btn poll-btn"
                         >
                             დამატება
                         </button>
