@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import GraphOrSignature from '../ChildComponents/FunctionalComponents/GraphOrSignature';
 import AddVote from '../ChildComponents/AddVote';
-// import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
+import ApiConfig from '../ApiConfig';
 
 class Poll extends Component {
     state = {
@@ -38,7 +38,7 @@ class Poll extends Component {
         });
 
         const wrappedPromise = cancelablePromise(
-            axios.get(`https://pollitic.herokuapp.com/api/poll/${pollId}/view`)
+            axios.get(`${ApiConfig.url}/api/poll/${pollId}/view`)
         );
 
         this.appendPendingPromise(wrappedPromise);

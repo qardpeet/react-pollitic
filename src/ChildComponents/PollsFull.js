@@ -5,8 +5,7 @@ import PreLoader from './FunctionalComponents/PreLoader';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import PollDisplay from './FunctionalComponents/PollDisplay';
 import { Redirect } from 'react-router-dom';
-
-const apiLink = 'http://pollitic.herokuapp.com/api/';
+import ApiConfig from '../ApiConfig';
 
 class PollsFull extends Component {
     state = {
@@ -62,7 +61,7 @@ class PollsFull extends Component {
         }
 
         const wrappedPromise = cancelablePromise(
-            axios.get(apiLink + contextBy, {
+            axios.get(`${ApiConfig.url}/api/` + contextBy, {
                 params: {
                     sort: sortBy,
                     page: this.state.page,

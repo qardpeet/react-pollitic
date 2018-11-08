@@ -4,8 +4,7 @@ import cancelablePromise from '../helpers/cancelablePromise';
 import PreLoader from './FunctionalComponents/PreLoader';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import PollDisplay from './FunctionalComponents/PollDisplay';
-
-const apiLink = 'http://pollitic.herokuapp.com/api/ongoing';
+import ApiConfig from '../ApiConfig';
 
 class PollsMin extends Component {
     state = {
@@ -46,7 +45,7 @@ class PollsMin extends Component {
         });
 
         const wrappedPromise = cancelablePromise(
-            axios.get(apiLink, {
+            axios.get(`${ApiConfig.url}/api/ongoing`, {
                 params: {
                     number: 4,
                     sort: sortBy,

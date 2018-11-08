@@ -7,6 +7,7 @@ import PreLoader from './FunctionalComponents/PreLoader';
 import { Redirect } from 'react-router-dom';
 import Recaptcha from 'react-recaptcha';
 import axios from 'axios';
+import ApiConfig from '../ApiConfig';
 
 class AddNewPoll extends Component {
     state = {
@@ -93,7 +94,7 @@ class AddNewPoll extends Component {
         });
 
         const wrappedPromise = cancelablePromise(
-            axios.post('http://pollitic.herokuapp.com/api/poll/create', data, {
+            axios.post(`${ApiConfig.url}/api/poll/create`, data, {
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded',
                 },

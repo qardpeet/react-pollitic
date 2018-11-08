@@ -5,14 +5,13 @@ import PreLoader from './FunctionalComponents/PreLoader';
 import Verify from './Verify';
 import Recaptcha from 'react-recaptcha';
 import axios from 'axios';
+import ApiConfig from '../ApiConfig';
 
 class AddVote extends Component {
     state = {
         userInput: {
             candidateId: '',
             number: '',
-            gender: '',
-            age: '',
             recaptcha: '',
         },
         status: 'waitingForUser',
@@ -62,7 +61,6 @@ class AddVote extends Component {
     };
 
     submitVote = () => {
-        // do some client-side validation before posting the data to the api
         let formData = new FormData();
 
         for (let key in this.state.userInput) {
@@ -80,7 +78,7 @@ class AddVote extends Component {
 
         let postLink = '';
         if (type === 'vote') {
-            postLink = `http://pollitic.herokuapp.com/api/poll/${this.props.pollId}/vote`;
+            postLink = `${ApiConfig.url}/api/poll/${this.props.pollId}/vote`;
         } else if (type === 'verify') {
             postLink = this.state.verificationLink;
         }
@@ -211,7 +209,7 @@ class AddVote extends Component {
                                     onChange={this.handleChange}
                                     value={this.state.userInput.number}
                                     maxLength="20"
-                                    placeholder="მითითებულ ნომერზე მოგივათ ვერიფიკაციის კოდი"
+                                    placeholder="599123456"
                                     name="number"
                                     type="text"
                                     className="validate"
