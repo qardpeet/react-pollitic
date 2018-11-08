@@ -5,7 +5,7 @@ import PreLoader from '../ChildComponents/FunctionalComponents/PreLoader';
 import PollDisplay from '../ChildComponents/FunctionalComponents/PollDisplay';
 import { Redirect } from 'react-router-dom';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
-import BarChart from '../ChildComponents/FunctionalComponents/BarChart';
+import GraphOrSignature from '../ChildComponents/FunctionalComponents/GraphOrSignature';
 import AddVote from '../ChildComponents/AddVote';
 // import DonutChart from '../ChildComponents/FunctionalComponents/DonutChart';
 
@@ -71,20 +71,22 @@ class Poll extends Component {
                     <p className="pollitic-description">
                         {this.state.apiData.data.poll.description}
                     </p>
-                    <hr />
-                    <AddVote
-                        candidates={this.state.apiData.data.poll.candidates}
-                        pollId={this.state.apiData.data.poll.id}
-                        setModal={this.props.setModal}
-                        requirePhoneAuth={this.state.apiData.data.poll.requirePhoneAuth}
-                        getPollApiData={this.getApiData}
-                    />
-                    {this.state.apiData.data.poll.totalcount > 1 ? (
+                    {this.state.apiData.data.poll.isClosed !== 'True' ? (
                         <>
                             <hr />
-                            <BarChart data={this.state.apiData.data.poll.candidates} />
+                            <AddVote
+                                candidates={this.state.apiData.data.poll.candidates}
+                                pollId={this.state.apiData.data.poll.id}
+                                setModal={this.props.setModal}
+                                requirePhoneAuth={this.state.apiData.data.poll.requirePhoneAuth}
+                                getPollApiData={this.getApiData}
+                            />
                         </>
                     ) : null}
+                    <GraphOrSignature
+                        totalVotes={this.state.apiData.data.poll.totalVotes}
+                        candidates={this.state.apiData.data.poll.candidates}
+                    />
                 </React.Fragment>
             );
         } else if (this.state.status === 'Not Found') {

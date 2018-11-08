@@ -1,8 +1,5 @@
 \--------------------------------TODOS-----------------------------------/
-***Code the Poll component
-***Do not show AddVote if voting is finished
 ***Add Graphs
-***Display appropriate visual on signature polls
 ***Questions
 ***Fix IOS device bugs
 ------------------------------------------------------------------------
@@ -31,3 +28,6 @@
 ***Add PhoneVerification
 ***Fix button font bugging out on some browsers
 ***Do not display graphs if votecount is < 1
+***Display appropriate visual on signature polls
+***Do not show AddVote if voting is finished
+***Code the Poll component

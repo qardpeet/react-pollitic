@@ -45,7 +45,9 @@ class Verify extends Component {
                         />
                     </div>
                     <div className="col s12">
-                        <button className="btn-large purple darken-1 main-btn">ვერიფიკაცია</button>
+                        <button className="btn-large purple darken-1 main-btn poll-btn">
+                            ვერიფიკაცია
+                        </button>
                     </div>
                 </div>
             </form>

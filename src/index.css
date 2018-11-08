@@ -152,6 +152,7 @@ nav .brand-logo {
     line-height: 2.5rem;
     text-align: center;
     color: white;
+    margin: 10px 0px;
 }
 
 .pollitic-min-item-overlay h4 {
@@ -305,6 +306,10 @@ nav .brand-logo {
     font-size: 16px;
     text-align: center;
     text-transform: lowercase;
+}
+
+.pollitic-petition {
+    color: #558b2f;
 }
 
 [type='radio']:not(:checked) + span:before,
