@@ -14,11 +14,9 @@ class AddNewPoll extends Component {
         userInput: {
             name: '',
             description: '',
-            password: '',
             requirePhoneAuth: 'False',
             isListed: 'True',
             candidates: [],
-            questions: [],
             closingDate: '1',
             image: null,
             recaptcha: '',
@@ -291,18 +289,7 @@ class AddNewPoll extends Component {
                             <option value="14">2 კვირა</option>
                         </select>
                     </div>
-                    <div className="input-field col s12 m6">
-                        <p className="pollitic-label">პაროლი</p>
-                        <input
-                            onChange={this.handleChange}
-                            value={this.state.userInput.password}
-                            name="password"
-                            type="text"
-                            className="validate"
-                            maxLength="12"
-                        />
-                    </div>
-                    <div className="input-field file-field col s12 m6">
+                    <div className="input-field file-field col s12">
                         <div className="btn-small light-green darken-2 poll-btn">
                             <span>სურათი</span>
                             <input type="file" onChange={this.handleFileUpload} name="image" />
@@ -332,21 +319,6 @@ class AddNewPoll extends Component {
                             removeItem={this.removeItem}
                             items={this.state.userInput.candidates}
                             itemKey="candidates"
-                        />
-                    </div>
-                    <div className="input-field col s12">
-                        <p className="pollitic-label">დამატებითი კითხვები</p>
-                        <AddFormItem
-                            addItem={this.addItem}
-                            itemName="questions"
-                            inputLength="120"
-                        />
-                    </div>
-                    <div className="col s12">
-                        <ArrayToList
-                            removeItem={this.removeItem}
-                            items={this.state.userInput.questions}
-                            itemKey="questions"
                         />
                     </div>
                     <div className="col s12">
