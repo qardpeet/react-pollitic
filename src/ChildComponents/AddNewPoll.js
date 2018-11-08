@@ -360,7 +360,7 @@ class AddNewPoll extends Component {
                             hl="ka"
                         />
                     </div>
-                    <div className="col s12">
+                    <div className="input-field col s12">
                         <button
                             onClick={this.handleSubmit}
                             className="btn-large purple darken-1 z-depth-3 main-btn poll-btn"

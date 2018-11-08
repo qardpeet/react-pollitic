@@ -4,12 +4,12 @@ const Modal = ({ isActive, message, title, status, disableModal }) => {
     if (isActive) {
         return (
             <div
-                className="modal open"
+                className="modal open z-depth-5"
                 style={{
                     zIndex: '1003',
                     display: 'block',
                     opacity: '1',
-                    top: '10%',
+                    top: '30%',
                     transform: 'scaleX(1), scaleY(1)',
                 }}
             >
@@ -22,7 +22,7 @@ const Modal = ({ isActive, message, title, status, disableModal }) => {
                 <div className="modal-footer">
                     <button
                         onClick={disableModal}
-                        className="modal-close waves-effect waves-green btn-flat"
+                        className="modal-close waves-effect waves-green btn-flat poll-btn"
                     >
                         თანხმობა
                     </button>
