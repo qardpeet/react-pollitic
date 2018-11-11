@@ -341,6 +341,20 @@ nav .brand-logo {
     border-radius: 10px;
 }
 
+.facebook-share {
+    position: fixed;
+    right: 0px;
+    cursor: pointer;
+}
+
+.mobile-verification-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
 [type='radio']:not(:checked) + span:before,
 [type='radio']:not(:checked) + span:after {
     border: 2px solid #616161;
@@ -375,6 +389,9 @@ nav .brand-logo {
     }
     .pollitic-min-item-overlay h2 {
         font-size: 16px;
+    }
+    .facebook-share {
+        top: 80px;
     }
 }
 

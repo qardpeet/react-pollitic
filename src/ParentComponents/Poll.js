@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import PaddedContainerHOC from '../hoc/PaddedContainerHOC';
 import GraphOrSignature from '../ChildComponents/FunctionalComponents/GraphOrSignature';
 import AddVote from '../ChildComponents/AddVote';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
 import ApiConfig from '../ApiConfig';
 
 class Poll extends Component {
@@ -67,10 +68,27 @@ class Poll extends Component {
         if (this.state.status === 'OK') {
             return (
                 <React.Fragment>
+                    {this.state.apiData.data.poll.requirePhoneAuth === 'True' ? (
+                        <div className="mobile-verification-status">
+                            <i class="material-icons">mobile_friendly</i>
+                            <p>გამოკითხვაზე SMS ვერიფიკაცია სავალდებულოა</p>
+                        </div>
+                    ) : (
+                        <div className="mobile-verification-status">
+                            <i class="material-icons">mobile_off</i>
+                            <p>გამოკითხვაზე SMS ვერიფიკაცია არასავალდებულოა</p>
+                        </div>
+                    )}
                     <PollDisplay size="large" polls={[this.state.apiData.data.poll]} />
                     <p className="pollitic-description">
                         {this.state.apiData.data.poll.description}
                     </p>
+                    <FacebookShareButton
+                        url={`https://pollitic.ge${this.props.match.url}`}
+                        className="facebook-share"
+                    >
+                        <FacebookIcon size={32} />
+                    </FacebookShareButton>
                     {this.state.apiData.data.poll.isClosed !== 'True' ? (
                         <>
                             <hr />
