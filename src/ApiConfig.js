@@ -1,5 +1,5 @@
 const ApiConfig = {
-    url: 'https://pollitic.herokuapp.com',
+    url: 'https://pollitic.ge',
 };
 
 export default ApiConfig;
