@@ -216,7 +216,7 @@ class AddNewPoll extends Component {
                             value={this.state.userInput.name}
                             ref={input => (this.refsCollection.name = input)}
                             onKeyUp={e => this.handleKeyUp(e, 'description')}
-                            maxLength="120"
+                            maxLength="80"
                             placeholder="მთავარი კითხვა"
                             name="name"
                             type="text"
@@ -236,11 +236,18 @@ class AddNewPoll extends Component {
                             name="description"
                             type="text"
                             className="validate"
-                            maxLength="250"
+                            maxLength="350"
                         />
                     </div>
                     <div className="input-field col s12 m6">
                         <p className="pollitic-label">
+                            <button
+                                className="tool-tip z-depth-1"
+                                data-balloon="აირჩიეთ 'დახურული' თუ გსურთ, რომ თქვენი გამოთხვის ნახვა მხოლოდ პირადი ბმულით იყოს შესაძლებელი"
+                                data-balloon-pos="right"
+                            >
+                                ?
+                            </button>
                             სტატუსი
                             <span className="important">*</span>
                         </p>
@@ -256,6 +263,13 @@ class AddNewPoll extends Component {
                     </div>
                     <div className="input-field col s12 m6">
                         <p className="pollitic-label">
+                            <button
+                                className="tool-tip z-depth-1"
+                                data-balloon="აირჩიეთ 'სავალდებულო' თუ გსურთ, რომ თქვენ გამოკითხვაზე ხმის მიცემა მხოლოდ SMS ვერიფიკაციით იყოს შესაძლებელი"
+                                data-balloon-pos="right"
+                            >
+                                ?
+                            </button>
                             SMS ვერიფიკაცია
                             <span className="important">*</span>
                         </p>
@@ -271,6 +285,13 @@ class AddNewPoll extends Component {
                     </div>
                     <div className="input-field col s12 m6">
                         <p className="pollitic-label">
+                            <button
+                                className="tool-tip z-depth-1"
+                                data-balloon="აირჩიეთ თუ რამდენ ხანში გსურთ გამოკითხვის დასრულება (დასრულების შემდეგ შედეგების ნახვა მაინც შესაძლებელი იქნება)"
+                                data-balloon-pos="right"
+                            >
+                                ?
+                            </button>
                             ხანგრძლივობა
                             <span className="important">*</span>
                         </p>
@@ -304,6 +325,13 @@ class AddNewPoll extends Component {
                     </div>
                     <div className="input-field col s12">
                         <p className="pollitic-label">
+                            <button
+                                className="tool-tip z-depth-1"
+                                data-balloon="დაამატეთ გამოკითხვაზე თითო პასუხი + ღილაკის საშუალებით"
+                                data-balloon-pos="right"
+                            >
+                                ?
+                            </button>
                             პასუხები
                             <span className="important">*</span>
                         </p>

@@ -15,7 +15,13 @@ const Footer = () => {
                     </div>
                     <div className="col s6 pull-m2">
                         <p className="right-align" style={{ fontSize: '14px', color: 'grey' }}>
-                            {textRight}
+                            <a
+                                href="https://github.com/lukabuz/pollitic"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {textRight}
+                            </a>
                         </p>
                     </div>
                 </div>
