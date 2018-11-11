@@ -54,9 +54,8 @@ const BarChart = ({ data }) => {
                 <div>
                     <Doughnut
                         data={dataMount}
-                        height={500}
                         options={{
-                            maintainAspectRatio: false,
+                            maintainAspectRatio: true,
                             legend: {
                                 display: true,
                                 position: 'bottom',
