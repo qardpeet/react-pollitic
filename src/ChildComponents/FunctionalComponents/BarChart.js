@@ -77,6 +77,16 @@ const BarChart = ({ data }) => {
                                 display: true,
                                 position: 'bottom',
                             },
+                            scales: {
+                                yAxes: [
+                                    {
+                                        ticks: {
+                                            beginAtZero: true,
+                                            stepSize: 1,
+                                        },
+                                    },
+                                ],
+                            },
                         }}
                     />
                 </div>
