@@ -83,7 +83,6 @@ const BarChart = ({ data }) => {
                                     {
                                         ticks: {
                                             beginAtZero: true,
-                                            stepSize: 1,
                                         },
                                     },
                                 ],

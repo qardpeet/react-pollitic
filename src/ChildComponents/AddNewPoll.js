@@ -198,7 +198,7 @@ class AddNewPoll extends Component {
             return (
                 <div className="row pollitic-pad">
                     <div className="col s12">
-                        <h3>პოლის პარამეტრები</h3>
+                        <h3>გამოკითხვის შექმნა</h3>
                     </div>
                     <div className="col s12">
                         <p className="pollitic-note">
@@ -364,7 +364,7 @@ class AddNewPoll extends Component {
                     <div className="input-field col s12">
                         <button
                             onClick={this.handleSubmit}
-                            className="btn-large purple darken-1 z-depth-3 main-btn poll-btn"
+                            className="btn-large light-green darken-2 z-depth-3 main-btn poll-btn"
                         >
                             დამატება
                         </button>

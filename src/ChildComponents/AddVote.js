@@ -231,7 +231,7 @@ class AddVote extends Component {
                         <div className="input-field col s12">
                             <button
                                 onClick={this.submitVote}
-                                className="btn-large purple darken-1 main-btn poll-btn"
+                                className="btn-large light-green darken-2 main-btn poll-btn"
                             >
                                 ხმის დაფიქსირება
                             </button>

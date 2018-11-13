@@ -20,7 +20,7 @@ const CallToAction = () => {
                 <h1>{title}</h1>
                 <p>{description}</p>
                 <Link to="/new-poll">
-                    <button className="btn-large purple darken-1 z-depth-3 poll-btn">
+                    <button className="btn-large light-green darken-2 z-depth-3 poll-btn">
                         {button}
                     </button>
                 </Link>
