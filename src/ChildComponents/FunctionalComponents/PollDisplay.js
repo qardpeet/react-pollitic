@@ -7,8 +7,12 @@ const PollDisplay = ({ polls, size }) => {
         size === 'large' ? 'pollitic-min-item-overlay full' : 'pollitic-min-item-overlay';
 
     const getTimeLeft = closingDate => {
-        const closingDateUnix = Date.parse(closingDate + ' UTC');
-        const timeNow = new Date();
+        const a = closingDate.split(' ');
+        const d = a[0].split('-');
+        const t = a[1].split(':');
+        const ieDate = new Date(Date.UTC(d[0], d[1] - 1, d[2], t[0], t[1], t[2]));
+        const closingDateUnix = Date.parse(ieDate);
+        const timeNow = Date.now();
         const timeLeftUnix = closingDateUnix - timeNow;
         const timeLeft = new Date(timeLeftUnix);
 

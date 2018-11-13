@@ -70,12 +70,16 @@ class Poll extends Component {
                 <React.Fragment>
                     {this.state.apiData.data.poll.requirePhoneAuth === 'True' ? (
                         <div className="mobile-verification-status">
-                            <i class="material-icons">mobile_friendly</i>
+                            <i className="material-icons" style={{ color: '#7cb342' }}>
+                                mobile_friendly
+                            </i>
                             <p>გამოკითხვაზე SMS ვერიფიკაცია სავალდებულოა</p>
                         </div>
                     ) : (
                         <div className="mobile-verification-status">
-                            <i class="material-icons">mobile_off</i>
+                            <i className="material-icons" style={{ color: '#e57373' }}>
+                                mobile_off
+                            </i>
                             <p>გამოკითხვაზე SMS ვერიფიკაცია არასავალდებულოა</p>
                         </div>
                     )}

@@ -8,6 +8,7 @@ import Navbar from './ChildComponents/Navbar';
 import Footer from './ChildComponents/Footer';
 import Modal from './ChildComponents/FunctionalComponents/Modal';
 import NotFound from './ParentComponents/NotFound';
+import '@babel/polyfill';
 
 class App extends Component {
     state = {

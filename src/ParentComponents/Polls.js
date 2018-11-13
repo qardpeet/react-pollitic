@@ -1,5 +1,6 @@
 import React from 'react';
 import PollsFull from '../ChildComponents/PollsFull';
+import 'url-search-params-polyfill';
 
 const Polls = ({ location }) => {
     const params = new URLSearchParams(location.search);
