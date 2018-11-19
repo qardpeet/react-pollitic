@@ -14,7 +14,7 @@ const GraphOrSignature = ({ totalVotes, candidates }) => {
     return (
         <>
             <hr />
-            <BarChart data={candidates} />
+            <BarChart data={candidates} totalVotes={totalVotes} />
         </>
     );
 };

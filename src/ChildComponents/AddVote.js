@@ -202,6 +202,13 @@ class AddVote extends Component {
                         {this.props.requirePhoneAuth === 'True' ? (
                             <div className="input-field col s12 m6">
                                 <p className="pollitic-label">
+                                    <button
+                                        className="tool-tip z-depth-1"
+                                        data-balloon="ჩვენ არ ვინახავთ თქვენ ტელეფონის ნომერს."
+                                        data-balloon-pos="right"
+                                    >
+                                        ?
+                                    </button>
                                     ტელეფონის ნომერი
                                     <span className="important">*</span>
                                 </p>
