@@ -94,6 +94,7 @@ nav .brand-logo {
     padding: 15px;
     background-color: white;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 .padded-sides-white {
@@ -355,6 +356,10 @@ nav .brand-logo {
     text-align: center;
 }
 
+.pollitic-table {
+    margin: 40px 0;
+}
+
 [type='radio']:not(:checked) + span:before,
 [type='radio']:not(:checked) + span:after {
     border: 2px solid #616161;
@@ -392,6 +397,9 @@ nav .brand-logo {
     }
     .facebook-share {
         top: 80px;
+    }
+    .pollitic-table {
+        overflow-x: scroll;
     }
 }
 

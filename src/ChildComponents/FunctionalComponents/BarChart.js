@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
+import CandidateTable from './CandidateTable';
 
 const BarChart = ({ data, totalVotes }) => {
     const candidateList = data.map(candidate => {
@@ -57,6 +58,27 @@ const BarChart = ({ data, totalVotes }) => {
 
     return (
         <>
+            <h3>ცხრილი</h3>
+            <div className="row">
+                <div className="col s12 pollitic-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>პასუხი</th>
+                                <th>ხმების რაოდენობა</th>
+                                <th>პროცენტულობა</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <CandidateTable
+                                candidateList={candidateList}
+                                voteNumberList={voteNumberList}
+                                votePercentList={votePercentList}
+                            />
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <h3>დონატი</h3>
             <div className="horizontal-bar-chart pollitic-item padded-white">
                 <div>
