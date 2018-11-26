@@ -148,10 +148,8 @@ const BarChart = ({ data, totalVotes }) => {
                 <div>
                     <Doughnut
                         data={() => buildData(candidateNameList, votePercentList)}
-                        height={1000}
                         options={{
                             responsive: true,
-                            maintainAspectRatio: false,
                             legend: {
                                 display: true,
                                 position: 'bottom',
