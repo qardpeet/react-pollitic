@@ -1,12 +1,12 @@
 import React from 'react';
 
-const CandidateTable = ({ voteNumberList, candidateList, votePercentList }) => {
-    const candidateTable = candidateList.map((candidate, index) => {
+const CandidateTable = ({ candidateList }) => {
+    const candidateTable = candidateList.map(candidate => {
         return (
-            <tr key={index}>
-                <td>{candidate}</td>
-                <td>{voteNumberList[index]}</td>
-                <td>{votePercentList[index]}</td>
+            <tr key={candidate.id}>
+                <td>{candidate.name}</td>
+                <td>{candidate.voteCount}</td>
+                <td>{candidate.percentage}%</td>
             </tr>
         );
     });

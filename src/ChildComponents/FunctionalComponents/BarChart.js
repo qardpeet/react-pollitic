@@ -3,16 +3,84 @@ import { Bar, Doughnut } from 'react-chartjs-2';
 import CandidateTable from './CandidateTable';
 
 const BarChart = ({ data, totalVotes }) => {
-    const candidateList = data.map(candidate => {
+    const candidates = data.map(candidate => {
+        return {
+            ...candidate,
+            percentage: (candidate.voteCount / totalVotes) * 100,
+        };
+    });
+
+    const quickSortCandidates = arr => {
+        if (arr.length < 2) return arr;
+
+        const pivot = arr[Math.floor(Math.random() * arr.length)];
+
+        let left = [];
+        let equal = [];
+        let right = [];
+
+        for (let element of arr) {
+            if (element.percentage % 1 < pivot.percentage % 1) right.push(element);
+            else if (element.percentage % 1 > pivot.percentage % 1) left.push(element);
+            else equal.push(element);
+        }
+
+        return quickSortCandidates(left)
+            .concat(equal)
+            .concat(quickSortCandidates(right));
+    };
+
+    const floorCandidatePercentage = arr => {
+        let finalArr = [];
+        for (let i in arr) {
+            finalArr.push({ ...arr[i], percentage: parseInt(arr[i].percentage) });
+        }
+        return finalArr;
+    };
+
+    const getSum = (total, num) => {
+        return total + num;
+    };
+
+    const scaleSortedCandidatePercentage = (arr, defaultSum) => {
+        let percentagesList = arr.map(candidate => {
+            return candidate.percentage;
+        });
+
+        let arrSum = percentagesList.reduce(getSum);
+        let finalArr = [];
+
+        if (arrSum < defaultSum) {
+            for (let i in arr) {
+                if (arrSum < 100) {
+                    finalArr.push({ ...arr[i], percentage: arr[i].percentage + 1 });
+                    arrSum += 1;
+                } else {
+                    finalArr.push(arr[i]);
+                }
+            }
+        } else {
+            finalArr = arr;
+        }
+
+        return finalArr;
+    };
+
+    const candidateList = scaleSortedCandidatePercentage(
+        floorCandidatePercentage(quickSortCandidates(candidates)),
+        100
+    );
+
+    const candidateNameList = candidateList.map(candidate => {
         return candidate.name;
     });
 
-    const voteNumberList = data.map(candidate => {
+    const voteNumberList = candidateList.map(candidate => {
         return candidate.voteCount;
     });
 
-    const votePercentList = data.map(candidate => {
-        return Math.round((candidate.voteCount / totalVotes) * 100);
+    const votePercentList = candidateList.map(candidate => {
+        return candidate.percentage;
     });
 
     const buildData = (candidateArr, voteArr) => {
@@ -70,11 +138,7 @@ const BarChart = ({ data, totalVotes }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <CandidateTable
-                                candidateList={candidateList}
-                                voteNumberList={voteNumberList}
-                                votePercentList={votePercentList}
-                            />
+                            <CandidateTable candidateList={candidateList} />
                         </tbody>
                     </table>
                 </div>
@@ -83,9 +147,10 @@ const BarChart = ({ data, totalVotes }) => {
             <div className="horizontal-bar-chart pollitic-item padded-white">
                 <div>
                     <Doughnut
-                        data={() => buildData(candidateList, votePercentList)}
-                        height={500}
+                        data={() => buildData(candidateNameList, votePercentList)}
+                        height={1000}
                         options={{
+                            responsive: true,
                             maintainAspectRatio: false,
                             legend: {
                                 display: true,
@@ -114,7 +179,7 @@ const BarChart = ({ data, totalVotes }) => {
             <div className="horizontal-bar-chart pollitic-item padded-white">
                 <div>
                     <Bar
-                        data={() => buildData(candidateList, voteNumberList)}
+                        data={() => buildData(candidateNameList, voteNumberList)}
                         height={500}
                         options={{
                             maintainAspectRatio: false,
